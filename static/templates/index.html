@@ -1,12 +1,55 @@
 {% include "base.html" %}
+
 {% block title %} AI Image-generator {% endblock %}
 
 {% block body %}
-<h1>AI Image-Generator using DALL-E model</h1>
-<p>
-    <article>
-        This is coming soon. Keep watching <a href="https://github.com/Simatwa/ai-imager">this repo.</a>
-    </article>
-</p>
-{% endblock %}
+  <div class="header">
+    <h1>AI Image-Generator using DALL-E model</h1>
+    <p class="subtitle">Create unique images with AI technology</p>
+  </div>
 
+  <div class="content">
+    <div class="image-generator">
+      <h2>Generate Image</h2>
+      <form>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description"><br><br>
+        <button type="submit" class="button">Generate</button>
+      </form>
+      <div class="image-container">
+        <img id="generated-image" src="a_racoon_in_a_suit3.png" alt="Generated Image" style="width: 19%;">
+      </div>
+      
+    </div>
+
+    <div class="image-editor">
+      <h2>Edit Image</h2>
+      <form>
+        <label for="image-file">Image:</label>
+        <input type="file" id="image-file" name="image-file"><br><br>
+        <label for="mask-file">Mask:</label>
+        <input type="file" id="mask-file" name="mask-file"><br><br>
+        <label for="prompt">Prompt:</label>
+        <input type="text" id="prompt" name="prompt"><br><br>
+        <button type="submit" class="button">Edit</button>
+      </form>
+      <div class="image-container">
+        <img id="edited-image" src="a_racoon_in_a_suit1.png" alt="Edited Image" style="width: 19%;">
+      </div>
+    </div>
+
+    <div class="image-variation">
+      <h2>Variation</h2>
+      <form>
+        <label for="variation-file">Image:</label>
+        <input type="file" id="variation-file" name="variation-file"><br><br>
+        <button type="submit" class="button">Generate Variation</button>
+      </form>
+      <div class="image-container">
+        <img id="variation-image" src="a_racoon_in_a_suit2.png" alt="Variation Image" style="width: 19%;">
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
