@@ -50,3 +50,4 @@ image_url = response['data'][0]['url']
 
 - Takes in OPENAI-API-KEY as login credentials
 - Fills in a form - (Editing mode,Prompt,Image)
+- Return list of urls then display them.
