@@ -7,9 +7,16 @@ class openai_handler:
     def __init__(self):
         pass
 
+    def format_response(self,response:dict,action:str='PROMPT') -> list:
+        resp = []
+        for value in response["data"]:
+            resp.append(value["url"])
+        logging.debug(f"{action} : Response received : {resp}")
+        return resp
+
     @error_handler()
     def create_from_prompt(
-        self, prompt: str, total_images: int = 1, image_size: str = "512x512"
+        self, prompt: str, total_images: int = 2, image_size: str = "512x512"
     ):
         """Create Image based on description
 
@@ -21,8 +28,7 @@ class openai_handler:
         Returns:
             list|str: List of urls or error report
         """
-        response = openai.Image.create(prompt=prompt, n=total_images, size=image_size)
-        return response["data"][0]["url"]
+        return self.format_response(openai.Image.create(prompt=prompt, n=int(total_images), size=image_size))
 
     @error_handler()
     def create_edit(
@@ -46,10 +52,10 @@ class openai_handler:
             image=self._get_image_bytes(original_image_path),
             mask=self._get_image_bytes(masked_image_path),
             prompt=prompt,
-            n=total_images,
+            n=int(total_images),
             size=image_size,
         )
-        return response["data"][0]["url"]
+        return self.format_response(response,'EDIT')
 
     @error_handler()
     def create_variation(
@@ -57,10 +63,11 @@ class openai_handler:
     ) -> list | str:
         response = openai.Image.create_variation(
             image=self._get_image_bytes(path_to_image),
-            n=total_images,
+            n=int(total_images),
             size=image_size,
         )
-        return response["data"][0]["url"]
+        
+        return self.format_response(response,'VARIATION')
 
     def _get_image_bytes(
         self, path_to_image: str, image_resolution: int = 512

@@ -4,7 +4,7 @@ from . import error_handler as exception_handler
 from .imager import openai_handler 
 from os import path
 
-app_data_dir='/home/smartwa/git/ai-imager/contents'
+app_data_dir='/home/smartwa/git/ai-imager/contents' #to be modified 
 
 class local_config:
     def __init__(self):
@@ -30,7 +30,7 @@ class local_config:
     def get_from_form(self,*keys,resp:dict={}):
         for key in keys:
             resp[key]=request.form.get(key)
-        return
+        return resp
     
     @classmethod
     def get_from_file(self,*keys,resp:dict={}):
@@ -72,7 +72,7 @@ class local_config:
             'url':resp if not error else None,
             'error':None if not error else resp,
         }
-
+        
         return jsonify(api_data),http_code
 
     @classmethod
@@ -112,24 +112,26 @@ def API(port:int=8000,debug:bool=True,host:bool|str=False):
         return render_template('index.html')
 
     @app.route("/v1/image/<action>",methods=["GET"])
-    def imager(self,action):
+    def imager(action):
         """Handle v1 routings"""
-        return render_template('form.html',category=action)
+        if not action  in ('prompt','variation','mask'):
+            action='prompt'
+        return render_template('form.html',category=action,action=f"/v1/image/{action}/generate")
 
     @app.route("/v1/image/prompt/generate",methods=["POST"])
     #@local_config.imager_error_handler()
-    def create_from_prompt(self):
+    def create_from_prompt():
         """Generate image from text"""
         form_data = local_config.get_from_form('prompt',"total_images","image_size")
         if all(list(form_data.values())):
             resp = openai.create_from_prompt(**form_data)
-            resp = local_config.format_response(resp)
+            return local_config.format_response(resp)
         else:
             return local_config.format_response(api_config.incomplete_form_msg,http_code=400)
 
     @app.route("/v1/image/mask/generate",methods=["POST"])
     #@local_config.imager_error_handler()
-    def edit_with_mask(self):
+    def edit_with_mask():
         """Edit image with mask"""
         files = local_config.get_from_file("original_image_path","masked_image_path")
         texts = local_config.get_from_form("prompt","total_images","image_size")
@@ -141,7 +143,7 @@ def API(port:int=8000,debug:bool=True,host:bool|str=False):
 
     @app.route("/v1/image/variation/generate",methods=["POST"])
     #@local_config.imager_error_handler()
-    def get_variation(self):
+    def get_variation():
         """Get another image like same """
         files = local_config.get_from_file("path_to_image")
         texts = local_config.get_from_form("total_images","image_size")
@@ -149,7 +151,7 @@ def API(port:int=8000,debug:bool=True,host:bool|str=False):
         if all(list(files.values())):
             return openai.create_variation(**files)
         else:
-            api_config.format_response(api_config.incomplete_form_msg,http_code=400)
+            return api_config.format_response(api_config.incomplete_form_msg,http_code=400)
         
     launch_configs = {
         "port":port,

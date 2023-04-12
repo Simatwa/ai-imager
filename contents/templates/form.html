@@ -1,10 +1,17 @@
-<form onsubmit="verifyForm('create-from-prompt')" encoding="multipart/form-data" action="">
+{% extends 'base.html' %}
+{% block title %} {{category.capitalize()}} - AI Imager {% endblock %}
+{% block body %}
+ <form id='my-form' onsubmit='return postFormData("{{action}}")' method="POST" encoding="multipart/form-data" action="{{ action }}">
 {% if category=="prompt" %}
 <div class="create-from-prompt">
-    <h2>Generate image from prompt</h2>
+    <h2>Text-to-Image</h2>
+    {% include 'create_from_prompt.html' %}
     <!-- prompt',"total_images","image_size-->
+    <div id="image-container">
+        <!--image from api is written here-->
+    </div>
     <p class="category-info">Describe the image to be generated</p>
-    <textarea id="image-description" name="prompt" cols="80" rows="20" placeholder="Developed new york city in 2030"></textarea><br>
+    <textarea id="image-description" name="prompt" cols="100%" rows="20" placeholder="Developed new york city in 2030"></textarea><br>
 
     <input type="number" value = "2" id="total-images" name="total_images"/> 
     <label for="total-images">Images you intend to generate</label><br>
@@ -18,12 +25,15 @@
 
 </div>
 
-{% elif category=="mask"} 
+{% elif category=="mask" %} 
 <div class="create-with-mask">
     <h2>Modify image with reference to another</h2>
     {% include 'edit_with_mask.html' %}
     <!--"prompt","total_images","image_size"
     original_image_path","masked_image_path")-->
+    <div id="image-container">
+        <!--image from api is written here-->
+    </div>
     <input type="number" value = "2" id="total-images" name="total_images"/>
     <label for="total-images">Number of images to generate</label><br>
     <!--256x256`, `512x512`, `1024x1024-->
@@ -47,8 +57,12 @@
 
 {% else %} 
 <div class="create-variation">
-    <h2>Generate variant of an image</h2>
+    <h2>Another like the other</h2>
+    {% include 'generate_variation.html' %}
     <!--total_images","image_size" "path_to_image"-->
+    <div id="image-container">
+        <!--image from api is written here-->
+    </div>
     <input type="number" value = "2" id="total-images" name="total_images"/>
     <label for="total-images">Images you intend to generate</label><br>
 
@@ -67,7 +81,7 @@
 
 {% endif %}
 
-<input type="submit" value="Send"/>
+<input type="submit" onclick='return postFormData("{{action}}")' value="Send"/>
 </form>
 
 <div class="action_side">
