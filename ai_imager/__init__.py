@@ -1,18 +1,18 @@
 __version__ = "0.0.1"
 __repo__ = "https://github.com/Simatwa/ai-imager"
-__author__,__author_email__,__maintainer__,__maintainer_email__=("",)*4
+__author__, __author_email__, __maintainer__, __maintainer_email__ = ("",) * 4
 
 import logging
 import openai
 from appdirs import AppDirs
-from os import path,makedirs
+from os import path, makedirs
 
-__all__=[
+__all__ = [
     "imager",
     "web_interface",
 ]
 
-app_data_dir = AppDirs("Smartwa","ai-imager").user_data_dir
+app_data_dir = AppDirs("Smartwa", "ai-imager").user_data_dir
 
 if not path.isdir(app_data_dir):
     try:
@@ -25,7 +25,6 @@ logging.basicConfig(
     datefmt="%d-%b-%Y %H:%M:S",
     level=logging.INFO,
 )
-
 
 
 def getExc(e: object):

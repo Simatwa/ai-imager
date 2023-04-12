@@ -1,3 +1,4 @@
-from ai_imager import web_interface as app
-if __name__=="__main__":
-    app.main()
+from ai_imager.web_interface import API
+
+if __name__ == "__main__":
+    API()

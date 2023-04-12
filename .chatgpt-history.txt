@@ -1,0 +1,46 @@
+
+
+>>> (12-Apr 13:35:12) : Can I multiple decorate a flask application function?
+
+Yes, you can apply multiple decorators to a Flask application function. Decorators are simply functions that take a function as an argument and return a new function that usually adds some additional functionality to the original function. Here's an example of applying multiple decorators to a Flask application function:
+
+```
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+@app.before_request
+def my_function():
+    # do something before the request is processed
+    return 'Hello, world!'
+```
+
+In this example, we apply two decorators to the `my_function` function: `@app.route('/')` and `@app.before_request`. The `@app.route('/')` decorator tells Flask to route requests to the root URL to this function, while the `@app.before_request` decorator tells Flask to execute this function before processing each request. 
+
+Note that the order in which you apply the decorators matters. In this example, the `@app.route('/')` decorator must come before the `@app.before_request` decorator, because Flask needs to know which URL to route requests to before it can execute the `before_request` function.
+
+>>> (12-Apr 13:36:53) : how decorating "my_function" with self written decorator and not from flask library?
+
+To decorate `my_function` with a custom decorator that you have written yourself, you can simply apply the decorator to the function in the same way that you would apply any other decorator. Here's an example of how you could define and apply a custom decorator to `my_function`:
+
+```
+def my_decorator(func):
+    def wrapper():
+        print("Before function is called")
+        func()
+        print("After function is called")
+    return wrapper
+
+@my_decorator
+def my_function():
+    print("Hello, world!")
+
+my_function()
+```
+
+In this example, we define a custom decorator called `my_decorator` that takes a function as an argument and returns a new function that adds some additional functionality to the original function. The `wrapper` function defined inside `my_decorator` is the new function that gets returned. 
+
+We then apply the `@my_decorator` decorator to the `my_function` function, which tells Python to pass `my_function` as an argument to `my_decorator` and replace `my_function` with the new function that gets returned. 
+
+When we call `my_function()`, the `wrapper` function defined inside `my_decorator` gets executed instead of the original `my_function` function. The `wrapper` function first prints "Before function is called", then calls the original `my_function` function, which prints "Hello, world!", and finally prints "After function is called".
