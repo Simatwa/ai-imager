@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang='En-us'>
+   <head>
+      <meta charset='utf-8'>
+      <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+      <title>{% block title %} AI-Imagery{% endblock %} </title>
+      <link rel='icon' type='image/x-icon' href="{{url_for('static',filename='image/favicon.svg')}}">
+      <link rel='stylesheet' href="{{url_for('static',filename='css/style.css')}}">
+      <script type='text/javascript' src="{{url_for('static',filename='javascript/script.js')}}"></script>
+      <style>
+         @font-face{
+            src:url({{url_for('static',filename='fonts/belgrano.ttf')}});
+            font-family:belgrano;
+          }
+          
+          @font-face{
+            src:url({{url_for('static',filename='fonts/type_writer.ttf')}});
+            font-family:type_writer;
+          }
+      </style>
+   </head>
+   <body>
+{% block body %} {% endblock %}
+
+<pre>
+
+</pre>
+
+<div class="footer container"></div>
+   {% block footer %} {% include 'footer.html' %} {% endblock %}
+</div>
+</body>
+</html>

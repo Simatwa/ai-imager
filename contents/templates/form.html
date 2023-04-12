@@ -1,0 +1,76 @@
+<form onsubmit="verifyForm('create-from-prompt')" encoding="multipart/form-data" action="">
+{% if category=="prompt" %}
+<div class="create-from-prompt">
+    <h2>Generate image from prompt</h2>
+    <!-- prompt',"total_images","image_size-->
+    <p class="category-info">Describe the image to be generated</p>
+    <textarea id="image-description" name="prompt" cols="80" rows="20" placeholder="Developed new york city in 2030"></textarea><br>
+
+    <input type="number" value = "2" id="total-images" name="total_images"/> 
+    <label for="total-images">Images you intend to generate</label><br>
+    <!--256x256`, `512x512`, `1024x1024-->
+    <select id="image-size" name="image_size">
+        <option value="256x256">256x256</option>
+        <option value="512x512">512x512</option>
+        <option value="1024x1024">1024x1024</option>
+    </select> 
+    <label for="image-size">Images sizes</label><br>
+
+</div>
+
+{% elif category=="mask"} 
+<div class="create-with-mask">
+    <h2>Modify image with reference to another</h2>
+    {% include 'edit_with_mask.html' %}
+    <!--"prompt","total_images","image_size"
+    original_image_path","masked_image_path")-->
+    <input type="number" value = "2" id="total-images" name="total_images"/>
+    <label for="total-images">Number of images to generate</label><br>
+    <!--256x256`, `512x512`, `1024x1024-->
+    <select id="image-size" name="image_size">
+        <option value="256x256">256x256</option>
+        <option value="512x512">512x512</option>
+        <option value="1024x1024">1024x1024</option>
+    </select> 
+    <label for="image-size">Images sizes</label><br/>
+
+    <p class="category-info">Detail more on the action to be performed</p>
+    <textarea id="image-description" name="prompt" cols="80" rows="20" placeholder="A sunlit indoor lounge area with a pool containing a flamingo"></textarea><br>
+
+    <input type="file" id="original-image" name="original_image_path"/>
+    <label for="original-image">Image to be modified</label> <br/>
+
+    <input type="file" id="mask-image" name="masked_image_path"/>
+    <lable for="mask-image">The mask image</lable> <br>
+
+</div>
+
+{% else %} 
+<div class="create-variation">
+    <h2>Generate variant of an image</h2>
+    <!--total_images","image_size" "path_to_image"-->
+    <input type="number" value = "2" id="total-images" name="total_images"/>
+    <label for="total-images">Images you intend to generate</label><br>
+
+    <!--256x256`, `512x512`, `1024x1024-->
+    <select id="image-size" name="image_size">
+        <option value="256x256">256x256</option>
+        <option value="512x512">512x512</option>
+        <option value="1024x1024">1024x1024</option>
+    </select> 
+    <label for="image-size">Images sizes</label><br/>
+
+    <input type="file" id="variant-image" name="path_to_image"/>
+    <label for="variant-image">Image to generate reference from</label><br>
+
+</div>
+
+{% endif %}
+
+<input type="submit" value="Send"/>
+</form>
+
+<div class="action_side">
+    
+</div>
+{% endblock %}

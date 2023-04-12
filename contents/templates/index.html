@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %} AI Image-generator {% endblock %}
+{% block body %} 
+
+<h1> DALL-E Image Manipulator</h1>
+<div class="list-items">
+  <ol type="1">
+   <li>Creating images from scratch based on a text prompt</li>
+   <li>Creating edits of an existing image based on a new text prompt</li>
+   <li>Creating variations of an existing image</li>
+  </ol>
+</div>
+<h2 class="base-title"> 
+  Text-to-Image
+</h2>
+{% include 'create_from_prompt.html' %} 
+
+<h2 class="base-title">
+Image + Mask
+</h2>
+{% include 'edit_with_mask.html' %} 
+
+<h2 class="base-title">
+Image Variation
+</h2>
+{% include 'generate_variation.html' %}
+
+{% endblock %}

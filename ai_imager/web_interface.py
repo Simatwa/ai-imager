@@ -4,6 +4,8 @@ from . import error_handler as exception_handler
 from .imager import openai_handler 
 from os import path
 
+app_data_dir='/home/smartwa/git/ai-imager/contents'
+
 class local_config:
     def __init__(self):
         self.auth_cookie_key = "openai_api_key"
@@ -107,25 +109,14 @@ def API(port:int=8000,debug:bool=True,host:bool|str=False):
     @app.route("/")
     def index():
         """Landing page"""
-        if api_config.get_cookie(api_config.auth_cookie_key):
-            resp = render_template("index.html")
-        else:
-            resp = render_template("login_pop.html")
-        return resp
+        return render_template('index.html')
 
-    @app.route("/v1/image",methods=["POST"])
-    def imager(self):
+    @app.route("/v1/image/<action>",methods=["GET"])
+    def imager(self,action):
         """Handle v1 routings"""
-        action = api_config.get_from_form('action')#create
-        if action in ('create_from_prompt'):
-            resp = 'create_from_prompt'
-        elif action in ("edit_with_mask"):
-            resp = 'edit_with_mask'
-        else:
-            resp = 'get_variation'
-        return redirect(url_for(resp))
+        return render_template('form.html',category=action)
 
-    @app.route("/v1/image/prompt",methods=["POST"])
+    @app.route("/v1/image/prompt/generate",methods=["POST"])
     #@local_config.imager_error_handler()
     def create_from_prompt(self):
         """Generate image from text"""
@@ -136,7 +127,7 @@ def API(port:int=8000,debug:bool=True,host:bool|str=False):
         else:
             return local_config.format_response(api_config.incomplete_form_msg,http_code=400)
 
-    @app.route("/v1/image/mask",methods=["POST"])
+    @app.route("/v1/image/mask/generate",methods=["POST"])
     #@local_config.imager_error_handler()
     def edit_with_mask(self):
         """Edit image with mask"""
@@ -148,11 +139,11 @@ def API(port:int=8000,debug:bool=True,host:bool|str=False):
         else:
             return api_config.format_response(api_config.incomplete_form_msg,http_code=400)
 
-    @app.route("/v1/image/variation",methods=["POST"])
+    @app.route("/v1/image/variation/generate",methods=["POST"])
     #@local_config.imager_error_handler()
     def get_variation(self):
         """Get another image like same """
-        files = local_config.get_from_file("ath_to_image")
+        files = local_config.get_from_file("path_to_image")
         texts = local_config.get_from_form("total_images","image_size")
         files.update(texts)
         if all(list(files.values())):

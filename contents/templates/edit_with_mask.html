@@ -1,0 +1,25 @@
+<details>
+    <summary>
+        Edit and extend an image by uploading a mask.
+    </summary>
+    <p class="further-info">
+        The <a href="/v1/image/mask">image <strong>edits</strong> endpoint</a> allows you to edit and extend an image by uploading a mask. The transparent areas of the mask indicate where the image should be edited, and the prompt should describe the full new image, not just the erased area.
+    </p>
+    <div class="image-samples">
+        <figure>
+            <figcaption>Original</figcaption>
+            <img src="{{url_for('static',filename='image/image_edit_original.webp')}}" alt="Original"/>
+        </figure>
+        <figure>
+            <figcaption>Mask</figcaption>
+            <img src="{{url_for('static',filename='image/image_edit_mask.webp')}}" alt="Mask"/>
+        </figure>
+        <figure>
+            <figcaption>Output</figcaption>
+            <img src="{{url_for('static',filename='image/image_edit_output.webp')}}" alt="Output"/>
+        </figure>
+    </div>
+    <p class="further-info">
+        The uploaded image and mask must both be square PNG images less than 4MB in size, and also must have the same dimensions as each other. The non-transparent areas of the mask are not used when generating the output, so they don’t necessarily need to match the original image like the example above.
+    </p>
+</details>
