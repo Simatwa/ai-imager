@@ -1,4 +1,4 @@
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __repo__ = "https://github.com/Simatwa/ai-imager"
 __author__, __author_email__, __maintainer__, __maintainer_email__ = ("",) * 4
 
