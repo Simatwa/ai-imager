@@ -22,6 +22,16 @@ body {
     }
   }
   
+  @font-face{
+    src:url(/static/fonts/belgrano.ttf);
+    font-family:belgrano;
+  }
+  
+  @font-face{
+    src:url(/static/fonts/type_writer.ttf);
+    font-family:type_writer;
+  }
+
   input[type=textarea] {
     background-color: #f9d6b7;
     font-family: 'Open Sans', sans-serif;
