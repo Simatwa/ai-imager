@@ -6,6 +6,6 @@
 
 ## ToDo
 
-- [ ] Intergrate with API
+- [x] Render urls in JS
 - [ ] Prettify display
 - [ ] Aunthenticate users

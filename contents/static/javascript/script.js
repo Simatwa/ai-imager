@@ -1,39 +1,56 @@
 function postFormData(relativeApiLink) {
-    const absoluteApiLink = window.location.origin + relativeApiLink;
+  const absoluteApiLink = window.location.origin + relativeApiLink;
 
-    const form = document.querySelector('#my-form');
+  const form = document.querySelector('#my-form');
 
-    const imageContainer = document.querySelector('#image-container');
+  const imageContainer = document.querySelector('#image-container');
 
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-      const formData = new FormData(form);
-  
-      if (!formData.get('file')) {
-        alert('Please select a file to upload.');
-        return;
-      }
-      imageContainer.innerHTML = 'Loading...';
+    const formData = new FormData(form);
 
-      const response = await fetch(absoluteApiLink, {
-        method: 'POST',
-        body: formData
-      });
-      if (response.ok) {
-        const responseData = await response.json();
-        if (responseData.error) {
-            
-          imageContainer.innerHTML = resp
-        } else {
-          const imageUrls = responseData.url;
+    // Check if all input fields have values
+    let allFieldsHaveValues = true;
+    const inputFields = form.querySelectorAll('input');
+    inputFields.forEach(input => {
+      if (!formData.get(input.name)) {
 
-          const imageHtml = imageUrls.map(url => '<img class="from-api" src="${url}" alt="Image">').join('');
-
-          imageContainer.innerHTML = imageHtml;
-        }
-      } else {
-        imageContainer.innerHTML = "<p class='error'>Error: ${response.status}</p>";
+        allFieldsHaveValues = false;
       }
     });
-  }
+
+  /*
+    if (!allFieldsHaveValues) {
+      alert('Please fill in all the fields.');
+      return;
+    }
+    if (!formData.get('file')) {
+      alert('Please select a file to upload.');
+      return;
+    }
+    */
+
+    imageContainer.innerHTML = 'Loading...';
+
+    const response = await fetch(absoluteApiLink, {
+      method: 'POST',
+      body: formData
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      if (responseData.error) {
+        imageContainer.innerHTML = `<p class='error'>Error: ${responseData.error}</p>`;
+      } else {
+        const imageUrls = responseData.url;
+
+        const imageHtml = imageUrls.map(url => `<img class="from-api" src="${url}" alt="Image">`).join('');
+
+        imageContainer.innerHTML = imageHtml;
+      }
+    } else {
+      imageContainer.innerHTML = `<p class='error'>Error: ${response.status}</p>`;
+    }
+  });
+}

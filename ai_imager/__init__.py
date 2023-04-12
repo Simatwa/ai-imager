@@ -21,8 +21,8 @@ if not path.isdir(app_data_dir):
         print(f"Error while creating data-dir : {e.args[1] or e}")
 
 logging.basicConfig(
-    format="%(asctime)s - %(levelname)s : %(message)s",
-    datefmt="%d-%b-%Y %H:%M:S",
+    format="%(asctime)s - %(levelname)s : %(message)s %(module)s:%(lineno)s",
+    datefmt="%d-%b-%Y %H:%M:%S",
     level=logging.INFO,
 )
 
@@ -36,7 +36,7 @@ def getExc(e: object):
     Returns:
         _type_: str
     """
-    return e.args[1] or str(e)
+    return e.args[1] if len(e.args)>1 else str(e)
 
 
 def error_handler(log: bool = True):

@@ -55,6 +55,7 @@ class openai_handler:
             n=int(total_images),
             size=image_size,
         )
+        print(response)
         return self.format_response(response,'EDIT')
 
     @error_handler()
@@ -80,7 +81,7 @@ class openai_handler:
         """
         # Read the image file from disk and resize it
         image = Image.open(path_to_image)
-        image = image.resize((image_resolution) * 2)
+        image = image.resize((image_resolution,image_resolution))
         # Convert the image to a BytesIO object
         byte_stream = BytesIO()
         image.save(byte_stream, format="PNG")
