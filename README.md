@@ -7,5 +7,5 @@
 ## ToDo
 
 - [x] Render urls in JS
-- [ ] Prettify display
+- [x] Prettify display
 - [ ] Aunthenticate users

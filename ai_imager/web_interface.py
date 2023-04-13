@@ -133,7 +133,6 @@ def API(port:int=8000,debug:bool=True,host:bool|str=False):
 
     @local_config.imager_error_handler()
     @app.route("/v1/image/mask/generate",methods=["POST"])
-    #@local_config.imager_error_handler()
     def edit_with_mask():
         """Edit image with mask"""
         files = api_config.get_from_file("original_image_path","masked_image_path")
@@ -147,7 +146,6 @@ def API(port:int=8000,debug:bool=True,host:bool|str=False):
     
     @local_config.imager_error_handler()
     @app.route("/v1/image/variation/generate",methods=["POST"])
-    #@local_config.imager_error_handler()
     def get_variation():
         """Get another image like same """
         files = api_config.get_from_file("path_to_image")
@@ -170,4 +168,8 @@ def API(port:int=8000,debug:bool=True,host:bool|str=False):
     app.run(**launch_configs)
 
 if __name__=="__main__":
+    #Logging capabilites
+    #api key
+    #logging level
+    #logging filename
     API()

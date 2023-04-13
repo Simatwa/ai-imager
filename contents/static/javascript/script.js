@@ -31,7 +31,7 @@ function postFormData(relativeApiLink) {
     }
     */
 
-    imageContainer.innerHTML = '<p class="loading">Processing...</p>';
+    imageContainer.innerHTML = '<div class="loader-multicolor"></div>';
 
     const response = await fetch(absoluteApiLink, {
       method: 'POST',
@@ -50,7 +50,8 @@ function postFormData(relativeApiLink) {
         imageContainer.innerHTML = imageHtml;
       }
     } else {
-      imageContainer.innerHTML = `<p class='error'>Error: ${response.status}</p>`;
+      const responseData = await response.json();
+      imageContainer.innerHTML = `<p class='error'>Error: ${response.status} - ${responseData.error} </p>`;
     }
   });
 }
