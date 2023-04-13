@@ -12,13 +12,14 @@ __all__ = [
     "web_interface",
 ]
 
-app_data_dir = AppDirs("Smartwa", "ai-imager").user_data_dir
+app_data_dir = AppDirs("ai-imager",'Smartwa',__version__).user_data_dir
 
 if not path.isdir(app_data_dir):
     try:
         makedirs(app_data_dir)
     except Exception as e:
-        print(f"Error while creating data-dir : {e.args[1] or e}")
+        from sys import exit
+        exit(f"Error while creating data-dir : {e.args[1] or e}")
 
 logging.basicConfig(
     format="%(asctime)s - %(levelname)s : %(message)s %(module)s:%(lineno)s",
@@ -53,7 +54,7 @@ def error_handler(log: bool = True):
                 logging.error(resp)
                 return resp
             except Exception as e:
-                logging.error(getExc(e))
+                logging.error(f'Function : {func.__name__} - {getExc(e)}')
             else:
                 return resp
 

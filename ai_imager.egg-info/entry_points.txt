@@ -1,0 +1,2 @@
+[console_scripts]
+ai-imager = ai_imager.web_interface:start_server

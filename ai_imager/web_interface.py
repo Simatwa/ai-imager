@@ -1,10 +1,10 @@
 from flask import *
-from . import app_data_dir,logging,getExc
+from . import app_data_dir,logging,getExc,__version__,openai
 from . import error_handler as exception_handler
 from .imager import openai_handler 
 from os import path
 
-app_data_dir='/home/smartwa/git/ai-imager/contents' #to be modified 
+app_data_dir=path.join(app_data_dir,'contents')#'/home/smartwa/git/ai-imager/contents' 
 
 class local_config:
     def __init__(self):
@@ -167,9 +167,32 @@ def API(port:int=8000,debug:bool=True,host:bool|str=False):
 
     app.run(**launch_configs)
 
-if __name__=="__main__":
-    #Logging capabilites
-    #api key
-    #logging level
-    #logging filename
-    API()
+#@exception_handler()
+def start_server():
+    """Server entry"""
+    from argparse import ArgumentParser
+    parser=ArgumentParser(description="Manipulate images with OpenAI's model")
+    parser.add_argument('-v','--version',action='version',version=f'%(prog)s v{__version__}')
+    parser.add_argument('port',nargs='*',type=int,help='Port to start the server',default=8000)
+    parser.add_argument('-k','--key',help="OpenAI's API key")
+    parser.add_argument('-kp','--key-path',help="Path to OpenAI-API-KEY path")
+    parser.add_argument('-l','--logging-level',type=int,help='Log level of the app',choices=[10,20,30,40,50],metavar='10-50',default=20)
+    parser.add_argument('-o','--output',help='Filepath to log to')
+    parser.add_argument('--host',action='store_true',help='Host the site on LAN')
+    parser.add_argument('--debug',action='store_true',help='Start as debugging server')
+    args=parser.parse_args()
+    if args.key:
+        openai.api_key=args.key
+
+    if args.key_path:
+        openai.api_key_path=args.key_path
+
+    if any([args.logging_level,args.output]):
+        log_config={
+            'format':"%(asctime)s - %(levelname)s : %(message)s %(module)s:%(lineno)s",
+            'datefmt':"%d-%b-%Y %H:%M:%S",
+            'level':args.logging_level}
+        if args.output:
+            log_config['filename']=args.output
+        logging.basicConfig(**log_config)
+    API(args.port,args.debug,args.host)

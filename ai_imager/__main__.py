@@ -1,3 +1,3 @@
-from .web_interface import API
+from .web_interface import start_server
 
-API(host=False)
+start_server()

@@ -1,4 +1,5 @@
 from setuptools import setup
+from install import install_web_files 
 from ai_imager import (
     __version__,
     __author__,
@@ -27,4 +28,11 @@ setup(
     classifiers=[
         "Programming Language :: Python :: 3.11",
     ],
+    entry_points={
+        'console_scripts':[
+            ('ai-imager = ai_imager.web_interface:start_server'),
+        ]
+    }
 )
+
+install_web_files()
