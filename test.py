@@ -1,4 +1,5 @@
-from ai_imager.web_interface import API
-
+from ai_imager import web_interface as web 
+from os import getcwd,path
 if __name__ == "__main__":
-    API(host=True)
+    #web.app_data_dir=path.join(getcwd(),'contents')
+    web.API(host=True)

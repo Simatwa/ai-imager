@@ -31,7 +31,7 @@ function postFormData(relativeApiLink) {
     }
     */
 
-    imageContainer.innerHTML = 'Loading...';
+    imageContainer.innerHTML = '<p class="loading">Processing...</p>';
 
     const response = await fetch(absoluteApiLink, {
       method: 'POST',
@@ -54,3 +54,14 @@ function postFormData(relativeApiLink) {
     }
   });
 }
+
+function openNav() {
+  document.getElementById("myNav")
+  .style.height="100%";
+ }
+ 
+
+ function closeNav() {
+  document.getElementById("myNav")
+  .style.height = "0%";
+ }

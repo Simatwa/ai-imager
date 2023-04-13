@@ -1,0 +1,22 @@
+<div id="myNav" class="overlay">
+    <a href="javascript:void(0)"
+    class="closebtn"
+    onclick="closeNav()">×</a>
+    <div class="overlay-content">
+      <a href="/">Home</a>
+      <a href="/v1/image/prompt">Prompt</a>
+      <a href="/v1/image/mask">Mask</a>
+      <a href="/v1/image/variation">Variation</a>
+    </div>
+  </div>
+
+<div class="header">
+    <span class="to-be-clicked" onclick="openNav()">
+        &#9776;
+        MENU
+    </span>
+    <span class="title">
+        AI-Imager
+    </span>
+    <img src="{{url_for('static',filename='image/favicon.svg')}}"/>
+</div>

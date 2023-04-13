@@ -4,6 +4,14 @@
 {% block body %} 
 
 <h1> DALL-E Image Manipulator</h1>
+<div class="introduction">
+  <p>
+    Welcome to our website, where we use OpenAI's powerful image manipulation API to transform your images in ways you never thought possible. Our cutting-edge technology allows us to apply a wide range of image processing techniques, from simple color adjustments to complex style transfers and image-to-image translations.
+  </p>
+  <p>
+  Whether you're a professional photographer looking to enhance your images, or just someone who wants to have fun with their photos, our website has something for everyone. So why wait? Start exploring our site today and see what amazing things you can do with your images using OpenAI's API as listed below.
+  </p>
+</div>
 <div class="list-items">
   <ol type="1">
    <li>Creating images from scratch based on a text prompt</li>
@@ -25,5 +33,7 @@ Image + Mask
 Image Variation
 </h2>
 {% include 'generate_variation.html' %}
+
+{% include 'disclaimer.html' %}
 
 {% endblock %}
