@@ -46,7 +46,7 @@ bash install.sh
 Once installed, the site can be fired up as follows:
 
 ```sh
-ai-image -k {OPENAI_API_KEY}
+ai-image -k $OPENAI_API_KEY
 ```
 
 <details>
@@ -60,7 +60,7 @@ Fire up efficiently - *recommended*
 - Make **KEY** an environment variable
 
 ```sh
-export OPENAI_API_KEY={Your-OPEN-AI-API-KEY}
+export OPENAI_API_KEY=<Your-OPENAI-API-KEY>
 ```
 
 - Fire up the server - `ai-imager`
@@ -97,7 +97,7 @@ By default,  the server has the following configurations.
 
 <summary>
 
-Run `ai-imager help` for more info.
+Run `$ ai-imager help` for more info.
 
 </summary>
 
