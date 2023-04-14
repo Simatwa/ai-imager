@@ -46,7 +46,7 @@ bash install.sh
 Once installed, the site can be fired up as follows:
 
 ```sh
-ai-image -k $OPENAI_API_KEY
+ai-imager -k $OPENAI_API_KEY
 ```
 
 <details>
@@ -63,7 +63,7 @@ Fire up efficiently - *recommended*
 export OPENAI_API_KEY=<Your-OPENAI-API-KEY>
 ```
 
-- Fire up the server - `ai-imager`
+- Fire up the server - `$ ai-imager`
 
 </details>
 
