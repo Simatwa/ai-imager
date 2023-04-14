@@ -1,6 +1,7 @@
 <h1 align="center">AI-Imager</h1>
 <p align="center">
 <a href="https://github.com/Simatwa/ai-imager"><img src="https://img.shields.io/static/v1?label=Github&message=passing&logo=github&color=green" alt="Github"/></a>
+<a href="https://github.com/Simatwa/ai-imager/raw/main/LICENSE"><img src="https://img.shields.io/static/v1?label=License&message=GNU v3.0&logo=license&color=yellow" alt="License"/></a>
 <a href="#"><img src="https://visitor-badge.glitch.me/badge?page_id=Simatwa.ai_imager&left_color=lime&right_color=red&left_text=Visitors" alt="visitors"></a>
 <a href="#"><img src="https://img.shields.io/static/v1?label=Development&message=Beta&color=Orange&logo=progress" alt="Progress"/></a>
 <a href="#"><img src="https://img.shields.io/static/v1?label=Code Style&message=Black&color=black&logo=Black" alt="Code-style"/></a>
@@ -57,6 +58,11 @@ Fire up efficiently - *recommended*
 </summary>
 
 - Make **KEY** an environment variable
+
+```sh
+export OPENAI_API_KEY={Your-OPEN-AI-API-KEY}
+```
+
 - Fire up the server - `ai-imager`
 
 </details>
@@ -87,8 +93,73 @@ By default,  the server has the following configurations.
     </tr>
 </table>
 
+<details>
+
+<summary>
+
+Run `ai-imager help` for more info.
+
+</summary>
+
+```
+
+usage: ai-imager [-h] [-v] [-k KEY] [-kp KEY_PATH] [-l 10-50] [-o OUTPUT]
+                 [--host] [--debug]
+                 [port ...]
+
+Manipulate images with OpenAI's model
+
+positional arguments:
+  port                  Port to start the server
+
+options:
+  -h, --help            show this help message and exit
+  -v, --version         show program's version number and exit
+  -k KEY, --key KEY     OpenAI's API key
+  -kp KEY_PATH, --key-path KEY_PATH
+                        Path to OpenAI-API-KEY path
+  -l 10-50, --logging-level 10-50
+                        Log level of the app
+  -o OUTPUT, --output OUTPUT
+                        Filepath to log to
+  --host                Host the site on LAN
+  --debug               Start as debugging server
+
+```
+
+</details>
+
+> **Tips** - Incase you're stack while using the script, don't hesitate to hit the developer's inbox 📥.
+
+## Acknowledgements
+
+- [x] [LawrenceKimutai](https://github.com/LawrenceKimutai)
+<!--
+### Contributors
+
+This project exists thanks to all the people who contribute.
+
+<a href="https://github.com/Simatwa/ai-imager/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=Simatwa/ai-imager" />
+</a>
+-->
+
+## Disclaimer
+
+This is not an official OpenAI product. This is a personal project and is not affiliated with OpenAI in any way. Don't sue me.
+
+## Developer Contacts
+
+<p align='center'>
+<a href="https://facebook.com/beny.carl.3"><img alt="Facebook" src="https://img.shields.io/static/v1?logo=facebook&message=Inbox&color=blue&label=Facebook"/></a>
+<a href="https://twitter.com/Smartwa_Caleb"><img alt="Twitter" src="https://img.shields.io/static/v1?logo=twitter&message=DM&color=cyan&label=Twitter"/></a>
+<a href="http://instagram.com/smartwa_caleb"><img alt="instagram" src="https://img.shields.io/static/v1?logo=instagram&message=DM&color=pink&label=Instagram"/>
+<a href="https://wa.me/254774304553?text=Hi *Smartwa*, I need help with *ai-imager* script ..."><img alt='Whatsapp' src="https://img.shields.io/static/v1?logo=whatsapp&message=Inbox&color=green&label=WhatsApp"/></a>
+
 ## ToDo
 
 - [x] Render urls in JS
 - [x] Prettify display
 - [ ] Aunthenticate users
+- [ ] Generate with EdgeGPT
+- [ ] Chat feature
