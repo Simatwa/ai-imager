@@ -182,7 +182,6 @@ def API(port: int = 8000, debug: bool = True, host: bool = False):
 
     app.run(**launch_configs)
 
-
 @exception_handler(log=False)
 def start_server():
     """Server entry"""
