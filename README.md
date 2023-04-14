@@ -6,7 +6,7 @@
 <a href="#"><img src="https://img.shields.io/static/v1?label=Code Style&message=Black&color=black&logo=Black" alt="Code-style"/></a>
 <a href="#"><img src="https://img.shields.io/static/v1?label=Coverage&message=80%&color=green" alt="Coverage"/></a>
 <a href="https://wakatime.com/badge/github/Simatwa/ai-imager"><img src="https://wakatime.com/badge/github/Simatwa/ai-imager.svg" alt="wakatime"></a><br>
-<img align="center" width='260px' height='auto' src="https://github.com/Simatwa/ai-imager/raw/main/contents/static/image/favicon.svg" alt="Logo"/>
+<img align="center" width='180px' height='auto' src="https://github.com/Simatwa/ai-imager/raw/main/contents/static/image/favicon.svg" alt="Logo"/>
 </p>
 
 ## Features 
