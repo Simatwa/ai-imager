@@ -131,6 +131,14 @@ options:
 
 > **Note** To *developers*, execute the [test.py](test.py) script to run server as you modify the contents.
 
+## ToDo
+
+- [x] Render urls in JS
+- [x] Prettify display
+- [ ] Aunthenticate users
+- [ ] Generate with EdgeGPT
+- [ ] Chat feature
+
 ## Acknowledgements
 
 - [x] [LawrenceKimutai](https://github.com/LawrenceKimutai)
@@ -157,11 +165,3 @@ This is not an official OpenAI product. This is a personal project and is not af
 <a href="https://twitter.com/Smartwa_Caleb"><img alt="Twitter" src="https://img.shields.io/static/v1?logo=twitter&message=DM&color=cyan&label=Twitter"/></a>
 <a href="http://instagram.com/smartwa_caleb"><img alt="instagram" src="https://img.shields.io/static/v1?logo=instagram&message=DM&color=pink&label=Instagram"/>
 <a href="https://wa.me/254774304553?text=Hi *Smartwa*, I need help with *ai-imager* script ..."><img alt='Whatsapp' src="https://img.shields.io/static/v1?logo=whatsapp&message=Inbox&color=green&label=WhatsApp"/></a>
-
-## ToDo
-
-- [x] Render urls in JS
-- [x] Prettify display
-- [ ] Aunthenticate users
-- [ ] Generate with EdgeGPT
-- [ ] Chat feature
