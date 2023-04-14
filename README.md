@@ -32,6 +32,7 @@ If you have enough permissions you can clone from official repo:
 
 ```sh
 git clone https://github.com/Simatwa/ai-imager.git
+cd ai-imager
 bash install.sh
 ```
 

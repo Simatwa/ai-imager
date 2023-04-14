@@ -21,6 +21,7 @@ setup(
         "Pillow==9.5.0",
         "openai==0.27.4",
         "appdirs==1.4.4",
+        "Flask==2.2.3",
     ],
     license="",
     python_requires=">=3.7",
