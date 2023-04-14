@@ -1,6 +1,9 @@
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __repo__ = "https://github.com/Simatwa/ai-imager"
-__author__, __author_email__, __maintainer__, __maintainer_email__ = ("",) * 4
+__author__, __author_email__, __maintainer__, __maintainer_email__ = (
+    "Smartwa Caleb",
+    "smartwacaleb@gmail.com",
+) * 2
 
 import logging
 import openai
