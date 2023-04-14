@@ -1,5 +1,4 @@
 from setuptools import setup
-from install import install_web_files 
 from ai_imager import (
     __version__,
     __author__,
@@ -35,5 +34,3 @@ setup(
         ]
     }
 )
-
-install_web_files()
