@@ -131,8 +131,6 @@ options:
 
 > **Note** To *developers*, execute the [test.py](test.py) script to run server as you modify the contents.
 
-> **Tips** - Incase you're stack while using the script, don't hesitate to hit the developer's inbox 📥.
-
 ## Acknowledgements
 
 - [x] [LawrenceKimutai](https://github.com/LawrenceKimutai)
@@ -149,6 +147,8 @@ This project exists thanks to all the people who contribute.
 ## Disclaimer
 
 This is not an official OpenAI product. This is a personal project and is not affiliated with OpenAI in any way. Don't sue me.
+
+> **Tips** - Incase you're stack while using the script, don't hesitate to hit the developer's inbox 📥.
 
 ## Developer Contacts
 
