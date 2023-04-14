@@ -129,6 +129,8 @@ options:
 
 </details>
 
+> **Note** To *developers*, execute the [test.py](test.py) script to run server as you modify the contents.
+
 > **Tips** - Incase you're stack while using the script, don't hesitate to hit the developer's inbox 📥.
 
 ## Acknowledgements
