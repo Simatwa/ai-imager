@@ -22,7 +22,8 @@ setup(
         "Pillow==9.5.0",
         "openai==0.27.4",
     ],
-    license="M",
+    license="",
+    python_requires='>=3.7',
     description="OpenAI Image-handler API",
     long_description=open("README.md", encoding="utf-8").read(),
     classifiers=[

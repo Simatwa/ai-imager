@@ -38,7 +38,7 @@ class openai_handler:
         prompt: str,
         total_images: int = 1,
         image_size: str = "512x512",
-    ) -> list | str:
+    ) -> list:
         """Edit image based on a reference image
 
         Args:
@@ -61,7 +61,7 @@ class openai_handler:
     @error_handler()
     def create_variation(
         self, path_to_image: str, total_images: int = 1, image_size: str = "512x512"
-    ) -> list | str:
+    ) -> list:
         response = openai.Image.create_variation(
             image=self._get_image_bytes(path_to_image),
             n=int(total_images),

@@ -55,7 +55,7 @@ class local_config:
         return resp
 
     @classmethod
-    def format_response(self,resp:str|list,http_code:int=200,error:bool=None):
+    def format_response(self,resp:list,http_code:int=200,error:bool=None):
         """Format response to be handled by API
 
         Args:
@@ -88,7 +88,7 @@ class local_config:
             return main
         return decorator
 
-def API(port:int=8000,debug:bool=True,host:bool|str=False):
+def API(port:int=8000,debug:bool=True,host:bool=False):
     """Start the web app
 
     Args:
