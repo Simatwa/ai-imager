@@ -7,7 +7,7 @@ class openai_handler:
     def __init__(self):
         pass
 
-    def format_response(self,response:dict,action:str='PROMPT') -> list:
+    def format_response(self, response: dict, action: str = "PROMPT") -> list:
         resp = []
         for value in response["data"]:
             resp.append(value["url"])
@@ -28,7 +28,9 @@ class openai_handler:
         Returns:
             list|str: List of urls or error report
         """
-        return self.format_response(openai.Image.create(prompt=prompt, n=int(total_images), size=image_size))
+        return self.format_response(
+            openai.Image.create(prompt=prompt, n=int(total_images), size=image_size)
+        )
 
     @error_handler()
     def create_edit(
@@ -56,7 +58,7 @@ class openai_handler:
             size=image_size,
         )
         print(response)
-        return self.format_response(response,'EDIT')
+        return self.format_response(response, "EDIT")
 
     @error_handler()
     def create_variation(
@@ -67,8 +69,8 @@ class openai_handler:
             n=int(total_images),
             size=image_size,
         )
-        
-        return self.format_response(response,'VARIATION')
+
+        return self.format_response(response, "VARIATION")
 
     def _get_image_bytes(
         self, path_to_image: str, image_resolution: int = 512
@@ -81,7 +83,7 @@ class openai_handler:
         """
         # Read the image file from disk and resize it
         image = Image.open(path_to_image)
-        image = image.resize((image_resolution,image_resolution))
+        image = image.resize((image_resolution, image_resolution))
         # Convert the image to a BytesIO object
         byte_stream = BytesIO()
         image.save(byte_stream, format="PNG")

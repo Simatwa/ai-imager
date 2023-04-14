@@ -42,22 +42,6 @@ body {
     font-family:belgrano;
     text-transform:uppercase;
    }
-
-  input[type=textarea] {
-    background-color: #f9d6b7;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  input[type=textarea]:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  }
   
   a {
     color: #241679;
@@ -172,14 +156,16 @@ form{
 
   textarea {
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     min-width: 200px;
     height: 200px;
-    max-height: 500px;
+    max-height: 600px;
     min-height: 100px;
-    resize: vertical;
+    resize: both;
     font-family:type_writer;
     font-size:15px;
+    text-indent:1em;
+    padding:10px;
     cols: 50;
     rows: 10;
   }
@@ -190,16 +176,42 @@ form{
 
   input:focus{
     border-color:aqua;
-
   }
 
-  input[type=select],input[type=number]{
+  textarea:hover,select:hover,input:hover{
+    border-color:cyan;
+  }
+
+  input[type=number]{
     width:40px;
-    height:20px;
+    height:14px;
+    text-align:center;
+    padding:3px;
+    font-size:large;
   }
 
-  input[type=button]{
-    width:50px;  
+  select{
+    width:90px;
+    height:25px;
+
+  }
+
+
+  button.send{
+    background-color:rgb(8, 155, 147);
+    color:#f1f1f1;
+    margin:10px;
+    border-radius:8px;
+    width:70px;
+    font-size:16px;
+  }
+
+  button.send:hover{
+    background-color:rgb(13, 243, 232);
+    color:brown;
+    margin:10px;
+    width:80px;
+    font-size:17px;
   }
   
   

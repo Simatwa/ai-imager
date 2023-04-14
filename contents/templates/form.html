@@ -11,7 +11,7 @@
         <!--image from api is written here-->
     </div><br>
     <p class="category-info">Describe the image to be generated</p>
-    <textarea id="image-description" name="prompt" cols="100%" rows="20" placeholder="Developed new york city in 2030"></textarea><br>
+    <textarea id="image-description" name="prompt" cols="100%" rows="20" placeholder="Developed new york city in 2030" required></textarea><br>
 
     <input type="number" value = "2" max="10" min="1" id="total-images" name="total_images"/> 
     <label for="total-images">Total Images</label><br>
@@ -45,7 +45,7 @@
     <label for="image-size">Images size</label><br/>
 
     <p class="category-info">Detail more on the action to be performed</p>
-    <textarea id="image-description" name="prompt" cols="80" rows="20" placeholder="A sunlit indoor lounge area with a pool containing a flamingo"></textarea><br>
+    <textarea id="image-description" name="prompt" cols="80" rows="20" placeholder="A sunlit indoor lounge area with a pool containing a flamingo" required></textarea><br>
 
     <input type="file" id="original-image" name="original_image_path"/>
     <label for="original-image">Image to be modified</label> <br/>
@@ -80,8 +80,11 @@
 </div>
 
 {% endif %}
-
+<!--
 <input type="submit" onclick='return postFormData("{{action}}")' value="Send">
+-->
+<button class="send" onclick='return postFormData("{{action}}")'>Send</button>
+
 </form>
 
 <div class="action_side">

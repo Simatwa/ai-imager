@@ -22,15 +22,15 @@ setup(
         "openai==0.27.4",
     ],
     license="",
-    python_requires='>=3.7',
+    python_requires=">=3.7",
     description="OpenAI Image-handler API",
     long_description=open("README.md", encoding="utf-8").read(),
     classifiers=[
         "Programming Language :: Python :: 3.11",
     ],
     entry_points={
-        'console_scripts':[
-            ('ai-imager = ai_imager.web_interface:start_server'),
+        "console_scripts": [
+            ("ai-imager = ai_imager.web_interface:start_server"),
         ]
-    }
+    },
 )
