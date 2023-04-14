@@ -45,7 +45,7 @@ function postFormData(relativeApiLink) {
       } else {
         const imageUrls = responseData.url;
 
-        const imageHtml = imageUrls.map(url => `<img class="from-api" src="${url}" alt="Image">`).join('');
+        const imageHtml = imageUrls.map(url => `<img class="from-api" src="${url}" alt="Image"></img>`).join('');
 
         imageContainer.innerHTML = imageHtml;
       }

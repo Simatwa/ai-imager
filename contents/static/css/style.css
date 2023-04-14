@@ -135,7 +135,7 @@ body {
   }
 
   img.from-api {
-    width:100%;
+    max-width:320px;
     height:auto;
     margin:10px;
   }
