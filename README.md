@@ -69,7 +69,7 @@ export OPENAI_API_KEY=<Your-OPENAI-API-KEY>
 
 By default,  the server has the following configurations.
 
-<table>
+<table align="center">
     <thead>Default configurations</thead>
     <tr>
         <th>Argument</th>
