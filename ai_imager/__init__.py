@@ -51,7 +51,7 @@ def error_handler(log: bool = True):
                 if not all([e.http_status, e.error]):
                     resp = "Server is missing OPENAI-API-KEY"
                 else:
-                    resp = e.error
+                    resp = e.error["message"]
                     logging.error(resp)
                 return resp
             except Exception as e:

@@ -5,7 +5,7 @@ function postFormData(relativeApiLink) {
 
   const imageContainer = document.querySelector('#image-container');
 
-  form.addEventListener('submit', async (event) => {
+  form.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const formData = new FormData(form);
@@ -33,26 +33,32 @@ function postFormData(relativeApiLink) {
 
     imageContainer.innerHTML = '<div class="loader-multicolor"></div>';
 
-    const response = await fetch(absoluteApiLink, {
+    const response = fetch(absoluteApiLink, {
       method: 'POST',
       body: formData
     });
 
-    if (response.ok) {
-      const responseData = await response.json();
-      if (responseData.error) {
-        imageContainer.innerHTML = `<p class='error'>${responseData.error}</p>`;
+    response.then(response => {
+      if (response.ok) {
+        const responseData = response.json();
+        responseData.then(responseData => {
+          if (responseData.error) {
+            imageContainer.innerHTML = `<p class='error'>${responseData.error}</p>`;
+          } else {
+            const imageUrls = responseData.url;
+
+            const imageHtml = imageUrls.map(url => `<img class="from-api" src="${url}" alt="Image"></img>`).join('');
+
+            imageContainer.innerHTML = imageHtml;
+          }
+        });
       } else {
-        const imageUrls = responseData.url;
-
-        const imageHtml = imageUrls.map(url => `<img class="from-api" src="${url}" alt="Image"></img>`).join('');
-
-        imageContainer.innerHTML = imageHtml;
+        const responseData = response.json();
+        responseData.then(responseData => {
+          imageContainer.innerHTML = `<p class='error'>${responseData.error} </p>`;
+        });
       }
-    } else {
-      const responseData = await response.json();
-      imageContainer.innerHTML = `<p class='error'>${responseData.error} </p>`;
-    }
+    });
   });
   return;
 }
@@ -61,7 +67,7 @@ function openNav() {
   document.getElementById("myNav")
   .style.height="100%";
  }
- 
+
 
  function closeNav() {
   document.getElementById("myNav")
