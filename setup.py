@@ -17,12 +17,7 @@ setup(
     maintainer=__maintainer__,
     maintainer_email=__maintainer_email__,
     url=__repo__,
-    install_requires=[
-        "Pillow==9.5.0",
-        "openai==0.27.4",
-        "appdirs==1.4.4",
-        "Flask==2.2.3",
-    ],
+    install_requires=open("requirements.txt", encoding="utf-8").readlines(),
     license="",
     python_requires=">=3.7",
     description="OpenAI based image generator and manipulator API",

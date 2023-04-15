@@ -10,18 +10,37 @@
     <div id="image-container">
         <!--image from api is written here-->
     </div><br>
-    <p class="category-info">Describe the image to be generated</p>
+    <label for="image-description">Describe the image to be generated</label> <br>
     <textarea id="image-description" name="prompt" cols="100%" rows="20" placeholder="Developed new york city in 2030" required></textarea><br>
 
     <input type="number" value = "2" max="10" min="1" id="total-images" name="total_images"/> 
     <label for="total-images">Total Images</label><br>
     <!--256x256`, `512x512`, `1024x1024-->
-    <select id="image-size" name="image_size">
-        <option value="256x256">256x256</option>
-        <option value="512x512">512x512</option>
-        <option value="1024x1024">1024x1024</option>
-    </select> 
-    <label for="image-size">Images size</label><br>
+    <div class='to-be-hidden'>
+        <select id="image-size" name="image_size">
+            <option value="256x256">256x256</option>
+            <option value="512x512">512x512</option>
+            <option value="1024x1024">1024x1024</option>
+        </select> 
+        <label for="image-size">Images size</label><br>
+    </div>
+
+</div>
+
+{% elif category=="bing" %}
+<div class="create-from-prompt">
+    <h2>Bing Text-to-Image</h2>
+    {% include 'create_with_bing.html' %}
+    <!-- prompt',"total_images","image_size-->
+    <div id="image-container">
+        <!--image from api is written here-->
+    </div><br>
+    <label for="image-description">Describe the image to be generated</label> <br>
+    <textarea id="image-description" name="prompt" cols="100%" rows="20" placeholder="Developed new york city in 2030" required></textarea><br>
+
+    <input type="number" value = "2" max="20" min="1" id="total-images" name="total_images"/> 
+    <label for="total-images">Total Images</label><br>
+    </div>
 
 </div>
 
@@ -44,7 +63,7 @@
     </select> 
     <label for="image-size">Images size</label><br/>
 
-    <p class="category-info">Detail more on the action to be performed</p>
+    <label for="image-description">Detail more on the action to be performed</label>
     <textarea id="image-description" name="prompt" cols="80" rows="20" placeholder="A sunlit indoor lounge area with a pool containing a flamingo" required></textarea><br>
 
     <input type="file" id="original-image" name="original_image_path"/>

@@ -94,10 +94,17 @@ class local_config:
         return decorator
 
 
-def API(port: int = 8000, debug: bool = True, host: bool = False):
+def API(
+    args: object,
+    port: int = 8000,
+    debug: bool = True,
+    host: bool = False,
+    threaded: bool = False,
+):
     """Start the web app
 
     Args:
+        args (object) : Argparse object.
         port (int, optional): Port for web to listen. Defaults to 8000.
         debug (bool, optional): Start the app in debug mode. Defaults to True.
         host (bool | str, optional): Host the web on LAN. Defaults to False.
@@ -106,7 +113,8 @@ def API(port: int = 8000, debug: bool = True, host: bool = False):
         None: None
     """
     api_config = local_config()
-    openai = openai_handler()
+    openai = openai_handler(args)
+
     app = Flask(
         __name__,
         static_folder=api_config.get_path("static"),
@@ -123,7 +131,7 @@ def API(port: int = 8000, debug: bool = True, host: bool = False):
     @app.route("/v1/image/<action>", methods=["GET"])
     def imager(action):
         """Handle v1 routings"""
-        if not action in ("prompt", "variation", "mask"):
+        if not action in ("prompt", "variation", "mask", "bing"):
             action = "prompt"
         return render_template(
             "form.html", category=action, action=f"/v1/image/{action}/generate"
@@ -136,6 +144,19 @@ def API(port: int = 8000, debug: bool = True, host: bool = False):
         form_data = api_config.get_from_form("prompt", "total_images", "image_size")
         if all(list(form_data.values())):
             resp = openai.create_from_prompt(**form_data)
+            return local_config.format_response(resp)
+        else:
+            return local_config.format_response(
+                api_config.incomplete_form_msg, http_code=400
+            )
+
+    @local_config.imager_error_handler()
+    @app.route("/v1/image/bing/generate", methods=["POST"])
+    def create_with_bing():
+        """Generate image with bing"""
+        form_data = api_config.get_from_form("prompt", "total_images")
+        if all(list(form_data.values())):
+            resp = openai.create_with_bing(**form_data)
             return local_config.format_response(resp)
         else:
             return local_config.format_response(
@@ -175,7 +196,7 @@ def API(port: int = 8000, debug: bool = True, host: bool = False):
     launch_configs = {
         "port": port,
         "debug": debug,
-        "threaded": True,
+        "threaded": threaded,
     }
     if host:
         launch_configs["host"] = "0.0.0.0"
@@ -212,7 +233,11 @@ def start_server():
         default=20,
     )
     parser.add_argument("-o", "--output", help="Filepath to log to", metavar="PATH")
+    parser.add_argument("-cf", "--cookie-file", help="Path to Bing's cookie file")
     parser.add_argument("--host", action="store_true", help="Host the site on LAN")
+    parser.add_argument(
+        "--thread", help="Run server in multiple threads", action="store_true"
+    )
     parser.add_argument(
         "--debug", action="store_true", help="Start as debugging server"
     )
@@ -232,4 +257,4 @@ def start_server():
         if args.output:
             log_config["filename"] = args.output
         logging.basicConfig(**log_config)
-    API(args.port, args.debug, args.host)
+    API(args, args.port, args.debug, args.host, args.thread)

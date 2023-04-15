@@ -1,11 +1,29 @@
 from . import logging, getExc, error_handler, openai
 from io import BytesIO
 from PIL import Image
+import contextlib
+import json
+from .bing import ImageGen
+from math import ceil
 
 
 class openai_handler:
-    def __init__(self):
-        pass
+    def __init__(self, args: object):
+        self.U = self.setup_bing(args)
+        self.bing = ImageGen(self.U, quiet=True)
+
+    @error_handler()
+    def setup_bing(self, args):
+        """Get cookie value"""
+        if not args.cookie_file:
+            return
+        with contextlib.suppress(Exception):
+            with open(args.cookie_file, encoding="utf-8") as file:
+                cookie_json = json.load(file)
+                for cookie in cookie_json:
+                    if cookie.get("name") == "_U":
+                        return cookie.get("value")
+        raise Exception("Cookie-file can't be found from " + args.cookie_file)
 
     def format_response(self, response: dict, action: str = "PROMPT") -> list:
         resp = []
@@ -71,6 +89,16 @@ class openai_handler:
         )
 
         return self.format_response(response, "VARIATION")
+
+    @error_handler()
+    def create_with_bing(self, prompt: str, total_images: int = 2) -> list:
+        resp = []
+        total_images = int(total_images)
+        for x in range(ceil(total_images / 4)):
+            resp.extend(self.bing.get_images(prompt))
+        if len(resp) > total_images:
+            resp = resp[0:total_images]
+        return resp
 
     def _get_image_bytes(
         self, path_to_image: str, image_resolution: int = 512
