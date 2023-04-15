@@ -261,7 +261,7 @@ def start_server():
     if any([args.logging_level, args.output]):
         log_config = {
             "format": "[%(asctime)s] - %(levelname)s : %(message)s",  # %(module)s:%(lineno)s",
-            "datefmt": "%d-%b-%Y %H:%M:%S",
+            "datefmt": "%H:%M:%S %d-%b-%Y",
             "level": args.logging_level,
         }
         if args.output:
