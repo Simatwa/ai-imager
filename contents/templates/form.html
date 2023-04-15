@@ -11,7 +11,7 @@
         <!--image from api is written here-->
     </div><br>
     <label for="image-description">Describe the image to be generated</label> <br>
-    <textarea id="image-description" name="prompt" cols="100%" rows="20" placeholder="Developed new york city in 2030" required></textarea><br>
+    <textarea id="image-description" name="prompt" cols="100%" rows="20" placeholder="Developed new york city in 2030"></textarea><br>
 
     <input type="number" value = "2" max="10" min="1" id="total-images" name="total_images"/> 
     <label for="total-images">Total Images</label><br>
@@ -36,7 +36,8 @@
         <!--image from api is written here-->
     </div><br>
     <label for="image-description">Describe the image to be generated</label> <br>
-    <textarea id="image-description" name="prompt" cols="100%" rows="20" placeholder="Developed new york city in 2030" required></textarea><br>
+    <textarea id="image-description" name="prompt" cols="100%" rows="20" placeholder="Developed new york city in 2030">
+    </textarea><br>
 
     <input type="number" value = "2" max="20" min="1" id="total-images" name="total_images"/> 
     <label for="total-images">Total Images</label><br>
@@ -64,7 +65,7 @@
     <label for="image-size">Images size</label><br/>
 
     <label for="image-description">Detail more on the action to be performed</label>
-    <textarea id="image-description" name="prompt" cols="80" rows="20" placeholder="A sunlit indoor lounge area with a pool containing a flamingo" required></textarea><br>
+    <textarea id="image-description" name="prompt" cols="80" rows="20" placeholder="A sunlit indoor lounge area with a pool containing a flamingo"></textarea><br>
 
     <input type="file" id="original-image" name="original_image_path"/>
     <label for="original-image">Image to be modified</label> <br/>
@@ -78,6 +79,9 @@
 <div class="create-variation">
     <h2>Another like the other</h2>
     {% include 'generate_variation.html' %}
+    <p class="further-info">
+            
+    </p>
     <!--total_images","image_size" "path_to_image"-->
     <div id="image-container">
         <!--image from api is written here-->
@@ -92,9 +96,8 @@
         <option value="1024x1024">1024x1024</option>
     </select> 
     <label for="image-size">Images size</label><br/>
-
     <input type="file" id="variant-image" name="path_to_image"/>
-    <label for="variant-image">Image to generate reference from</label><br>
+    <label for="variant-image">Reference image</label><br>
 
 </div>
 

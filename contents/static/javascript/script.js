@@ -41,7 +41,7 @@ function postFormData(relativeApiLink) {
     if (response.ok) {
       const responseData = await response.json();
       if (responseData.error) {
-        imageContainer.innerHTML = `<p class='error'>Error : ${responseData.error}</p>`;
+        imageContainer.innerHTML = `<p class='error'>${responseData.error}</p>`;
       } else {
         const imageUrls = responseData.url;
 
@@ -51,7 +51,7 @@ function postFormData(relativeApiLink) {
       }
     } else {
       const responseData = await response.json();
-      imageContainer.innerHTML = `<p class='error'>Error: ${response.status} - ${responseData.error} </p>`;
+      imageContainer.innerHTML = `<p class='error'>${responseData.error} </p>`;
     }
   });
   return;

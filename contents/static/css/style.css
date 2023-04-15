@@ -47,6 +47,10 @@ body {
     color: #241679;
     text-decoration: none;
   }
+
+  a:hover {
+    text-decoration:underline;
+  }
   
   figure > img {
     height: auto;
@@ -114,6 +118,8 @@ body {
     color: #fff;
     padding: 20px;
     text-align: center;
+    bottom:0;
+    position:relative;
   }
   
   h1,h4,figcaption,h2.base-title{
@@ -166,6 +172,7 @@ form{
     font-size:15px;
     text-indent:1em;
     padding:10px;
+    border-radius:20px;
     cols: 50;
     rows: 10;
   }
@@ -174,12 +181,13 @@ form{
     margin:10px;
   }
 
-  input:focus{
+  input:focus,textarea:focus{
+    color:rgb(14, 162, 221);
     border-color:aqua;
   }
 
   textarea:hover,select:hover,input:hover{
-    border-color:cyan;
+    border:2px solid rgb(16, 139, 139);
   }
 
   input[type=number]{
@@ -333,7 +341,7 @@ form{
   width:100%;
   background-color:rgb(70, 161, 132);
  }
-
+ 
  div.header > img{
   width:37px;
   height:auto;
@@ -380,4 +388,13 @@ rotate(360deg); }
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+#menu-title{
+  font-size:10px;
+}
+
+html,body{
+  height:100% !important;
+  margin:0;
 }

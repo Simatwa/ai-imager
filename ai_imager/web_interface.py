@@ -76,6 +76,14 @@ class local_config:
             "error": None if not error else resp,
         }
 
+        if not any(list(api_data.values())):
+            api_data[
+                "error"
+            ] = """
+            <div style="text-align:center;color:lime;">Server seems to be misconfigured!<br>If you're the host, ensure the 
+            <a href="https://github.com/acheong08/EdgeGPT#getting-authentication-required" target="_blank">bing cookie file</a>
+            and <a href="https://platform.openai.com/account/api-keys" target="_blank">OpenAI API Key</a>
+            are set properly.</div>"""
         return jsonify(api_data), http_code
 
     @classmethod
@@ -250,7 +258,7 @@ def start_server():
 
     if any([args.logging_level, args.output]):
         log_config = {
-            "format": "%(asctime)s - %(levelname)s : %(message)s %(module)s:%(lineno)s",
+            "format": "%(asctime)s - %(levelname)s : %(message)s ",  # %(module)s:%(lineno)s",
             "datefmt": "%d-%b-%Y %H:%M:%S",
             "level": args.logging_level,
         }

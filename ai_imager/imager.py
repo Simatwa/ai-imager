@@ -69,13 +69,12 @@ class openai_handler:
             size (str, optional): Image resolution from [`256x256`, `512x512`, `1024x1024`]. Defaults to "512x512".
         """
         response = openai.Image.create_edit(
-            image=self._get_image_bytes(original_image_path),
-            mask=self._get_image_bytes(masked_image_path),
+            image=self._get_image_bytes(original_image_path, no_mods=True),
+            mask=self._get_image_bytes(masked_image_path, no_mods=True),
             prompt=prompt,
             n=int(total_images),
             size=image_size,
         )
-        print(response)
         return self.format_response(response, "EDIT")
 
     @error_handler()
@@ -101,7 +100,7 @@ class openai_handler:
         return resp
 
     def _get_image_bytes(
-        self, path_to_image: str, image_resolution: int = 512
+        self, path_to_image: str, image_resolution: int = 512, no_mods: bool = False
     ) -> bytes:
         """Get bytes of a squared mage file
 
@@ -110,6 +109,8 @@ class openai_handler:
             image_resolution (int, optional): Resolution of the image to be squared. Defaults to 512.
         """
         # Read the image file from disk and resize it
+        if no_mods:
+            return open(path_to_image, "r+b")
         image = Image.open(path_to_image)
         image = image.resize((image_resolution, image_resolution))
         # Convert the image to a BytesIO object

@@ -80,7 +80,6 @@ class ImageGen:
         if self.debug_file:
             self.debug(sending_message)
         url_encoded_prompt = requests.utils.quote(prompt)
-        # https://www.bing.com/images/create?q=<PROMPT>&rt=3&FORM=GENCRE
         url = f"{BING_URL}/images/create?q={url_encoded_prompt}&rt=4&FORM=GENCRE"
         response = self.session.post(url, allow_redirects=False)
         # check for content waring message
@@ -98,13 +97,11 @@ class ImageGen:
                 self.debug(f"ERROR: {error_unsupported_lang}")
             raise Exception(error_unsupported_lang)
         if response.status_code != 302:
-            # if rt4 fails, try rt3
             url = f"{BING_URL}/images/create?q={url_encoded_prompt}&rt=3&FORM=GENCRE"
             response3 = self.session.post(url, allow_redirects=False, timeout=200)
             if response3.status_code != 302:
                 if self.debug_file:
                     self.debug(f"ERROR: {error_redirect}")
-                print(f"ERROR: {response3.text}")
                 raise Exception(error_redirect)
             response = response3
         # Get redirect URL
@@ -142,43 +139,6 @@ class ImageGen:
         normal_image_links = [link.split("?w=")[0] for link in image_links]
         # Remove duplicates
         normal_image_links = list(set(normal_image_links))
-
-        # bad_images = [
-        #     "https://r.bing.com/rp/in-2zU3AJUdkgFe7ZKv19yPBHVs.png",
-        #     "https://r.bing.com/rp/TX9QuO3WzcCJz1uaaSwQAz39Kb0.jpg",
-        # ]
-        # for img in normal_image_links:
-        #     if img in bad_images:
-        #         raise Exception("Bad images")
-        # No images
         if not normal_image_links:
             raise Exception(error_no_images)
         return normal_image_links
-
-    def save_images(self, links: list, output_dir: str) -> None:
-        """
-        Saves images to output directory
-        """
-        if self.debug_file:
-            self.debug(download_message)
-        if not self.quiet:
-            print(download_message)
-        with contextlib.suppress(FileExistsError):
-            os.mkdir(output_dir)
-        try:
-            jpeg_index = 0
-            for link in links:
-                while os.path.exists(os.path.join(output_dir, f"{jpeg_index}.jpeg")):
-                    jpeg_index += 1
-                with self.session.get(link, stream=True) as response:
-                    # save response to file
-                    response.raise_for_status()
-                    with open(
-                        os.path.join(output_dir, f"{jpeg_index}.jpeg"), "wb"
-                    ) as output_file:
-                        for chunk in response.iter_content(chunk_size=8192):
-                            output_file.write(chunk)
-        except requests.exceptions.MissingSchema as url_exception:
-            raise Exception(
-                "Inappropriate contents found in the generated images. Please try again or try another prompt.",
-            ) from url_exception
