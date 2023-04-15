@@ -48,7 +48,6 @@ def error_handler(log: bool = True):
                     logging.debug(f"Function executing - {func.__name__}")
                 resp = func(*args, **kwargs)
             except openai.error.OpenAIError as e:
-                print(e)
                 if not all([e.http_status, e.error]):
                     resp = "Server is missing OPENAI-API-KEY"
                 else:
@@ -58,6 +57,7 @@ def error_handler(log: bool = True):
             except Exception as e:
                 resp = getExc(e)
                 logging.error(f"Function : {func.__name__} - {resp}")
+                return resp
             else:
                 return resp
 
