@@ -76,7 +76,7 @@ class local_config:
             "error": None if not error else resp,
         }
 
-        if not any(list(api_data.values())):
+        if not any(list(api_data.values())) or "an unexpected keyword" in str(api_data["error"]):
             api_data[
                 "error"
             ] = """
