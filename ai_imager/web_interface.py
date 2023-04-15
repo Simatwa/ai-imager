@@ -241,7 +241,9 @@ def start_server():
         default=20,
     )
     parser.add_argument("-o", "--output", help="Filepath to log to", metavar="PATH")
-    parser.add_argument("-cf", "--cookie-file", help="Path to Bing's cookie file")
+    parser.add_argument(
+        "-cf", "--cookie-file", metavar="PATH", help="Path to Bing's cookie file"
+    )
     parser.add_argument("--host", action="store_true", help="Host the site on LAN")
     parser.add_argument(
         "--thread", help="Run server in multiple threads", action="store_true"
