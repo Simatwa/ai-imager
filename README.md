@@ -13,7 +13,7 @@
 ## Features 
 
 - Generate image from prompt
-  - EdgeGPT - *(Soon)*
+  - EdgeGPT
   - ChatGPT
 - Edit image with a mask
 - Generate variant of an image
@@ -65,6 +65,10 @@ export OPENAI_API_KEY=<Your-OPENAI-API-KEY>
 ```
 
 - Fire up the server - `$ ai-imager`
+
+- If yout want to use Bing's model, you have to parse the path to the cookie file during start up introduced by `-cf <path-to-cookie-file.json`.
+
+- Review [how to get the cookie file.](https://github.com/acheong08/EdgeGPT#getting-authentication-require)
 
 </details>
 
@@ -136,7 +140,7 @@ options:
 - [x] Render urls in JS
 - [x] Prettify display
 - [ ] Aunthenticate users
-- [ ] Generate with EdgeGPT
+- [x] Generate with EdgeGPT
 - [ ] Chat feature
 
 ## Acknowledgements
