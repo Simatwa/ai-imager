@@ -58,6 +58,7 @@ class openai_handler:
         prompt: str,
         total_images: int = 1,
         image_size: str = "512x512",
+        path_to_image=None,
     ) -> list:
         """Edit image based on a reference image
 
