@@ -49,7 +49,7 @@ def error_handler(log: bool = True, default=None):
                 resp = func(*args, **kwargs)
             except openai.error.OpenAIError as e:
                 if not all([e.http_status, e.error]):
-                    resp = "Server is missing OPENAI-API-KEY"
+                    resp = "Encountered exception while establishing connection with OpenAI."
                 else:
                     resp = e.error["message"]
                     if log:

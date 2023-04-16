@@ -2,7 +2,7 @@ from flask import *
 from . import app_data_dir, logging, getExc, __version__, openai
 from . import error_handler as exception_handler
 from .imager import openai_handler
-from os import path
+from os import path, environ
 from .common import generator, history
 from typing import Any
 
@@ -17,13 +17,13 @@ class local_config:
         self.upload_path = self.get_path("uploads")
         self.incomplete_form_msg = "Kindly fill all the fields"
         self.history = history(app_data_dir)
-        self.history_args = ['category','prompt','time','urls']
+        self.history_args = ["category", "prompt", "time", "urls"]
         self.get_identity = lambda: request.cookies.get("id")
 
     def get_path(self, *args):
         return path.join(app_data_dir, "/".join(args))
-    
-    def get_arg(self,*keys,default:Any=None,resp:dict={}) -> dict:
+
+    def get_arg(self, *keys, default: Any = None, resp: dict = {}) -> dict:
         """Extracts parameter's value from GET request
 
         Args:
@@ -31,10 +31,10 @@ class local_config:
             resp (dict, optional): Keys,values to be added in response. Defaults to {}.
 
         Returns:
-            dict: Parameter:Value 
+            dict: Parameter:Value
         """
         for arg in keys:
-            resp[arg] = request.args.get(arg,default)
+            resp[arg] = request.args.get(arg, default)
         return resp
 
     def get_from_form(self, *keys, resp: dict = {}) -> dict:
@@ -44,13 +44,15 @@ class local_config:
             resp (dict, optional): _description_. Defaults to {}.
 
         Returns:
-            dict: Form data - key,value 
+            dict: Form data - key,value
         """
         for key in keys:
             resp[key] = request.form.get(key)
         return resp
 
-    def history_handler(self,target:str=None,limit:int=1000) -> dict:
+    def history_handler(
+        self, target: str = None, category: str = None, limit: int = 1000
+    ) -> dict:
         """Extracts requested history data
 
         Args:
@@ -58,29 +60,42 @@ class local_config:
             limit (int,optional) : Limit response[data]
 
         Returns:
-            dict : Requested data 
+            dict : Requested data
         """
         target = str(target).lower()
         if limit and str(limit).isdigit():
             limit = int(limit)
         else:
             limit = 0
-        resp = {'data':[]}
+        if str(category).lower() in ["bing", "masking", "chatgpt", "variation"]:
+            category = category.lower()
+        else:
+            category = None
+        resp = {"data": []}
         data = self.history.get_contents(self.get_identity())
         if target and target in self.history_args:
-            for entry in data['data']:
-                current_resp = resp['data']
-                if target=='urls':
-                    resp['data']=current_resp+entry[target]
+            for entry in data["data"]:
+                current_resp = resp["data"]
+                if category and entry["category"].lower() != category:
+                    continue
+                if target == "urls":
+                    resp["data"] = current_resp + entry[target]
                 else:
                     current_resp.append(entry[target])
-                    resp['data']=current_resp
-    
+                    resp["data"] = current_resp
+
         else:
             resp = data
-        if limit and len(resp['data'])>limit:
-            resp['data']=resp['data'][:limit]
-        return resp 
+            if category:
+                harvested = []
+                for entry in resp["data"]:
+                    if entry["category"].lower() == category:
+                        harvested.append(entry)
+                resp = {"data": harvested}
+
+        if limit and len(resp["data"]) > limit:
+            resp["data"] = resp["data"][:limit]
+        return resp
 
     def get_from_file(self, *keys, resp: dict = {}):
         """Retrieve files from form
@@ -198,9 +213,9 @@ def API(
     @api_config.imager_error_handler()
     @app.route("/v1/history", methods=["GET"])
     def image_history():
-        #args : amount  category
+        # args : amount  category
         data = api_config.history.get_contents(api_config.get_identity())
-        reqs=api_config.get_arg('limit','target')
+        reqs = api_config.get_arg("limit", "target", "category")
         return api_config.history_handler(**reqs)
 
     @api_config.imager_error_handler()
@@ -341,4 +356,6 @@ def start_server():
         if args.output:
             log_config["filename"] = args.output
         logging.basicConfig(**log_config)
+    if not any([environ.get("OPENAI_API_KEY"), openai.api_key, openai.api_key_path]):
+        exit(logging.critical("OpenAI-API-Key is required"))
     API(args, args.port, args.debug, args.host, args.thread)

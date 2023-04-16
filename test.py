@@ -3,5 +3,5 @@ from os import getcwd, path
 
 if __name__ == "__main__":
     web.app_data_dir = path.join(getcwd(), "contents")
-    #web.API(host=True)
+    # web.API(host=True)
     web.start_server()

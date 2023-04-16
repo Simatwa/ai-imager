@@ -18,7 +18,7 @@ setup(
     maintainer_email=__maintainer_email__,
     url=__repo__,
     install_requires=open("requirements.txt", encoding="utf-8").readlines(),
-    license="",
+    license="GNU v3",
     python_requires=">=3.7",
     description="OpenAI based image generator and manipulator API",
     long_description=open("README.md", encoding="utf-8").read(),
