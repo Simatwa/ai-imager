@@ -38,7 +38,7 @@ def getExc(e: object):
     return e.args[1] if len(e.args) > 1 else str(e)
 
 
-def error_handler(log: bool = True):
+def error_handler(log: bool = True, default=None):
     """Decorator for appending exception handler"""
 
     def decorator(func: object):
@@ -57,7 +57,7 @@ def error_handler(log: bool = True):
             except Exception as e:
                 resp = getExc(e)
                 logging.error(f"Function : {func.__name__} - {resp}")
-                return resp
+                return default if default else resp
             else:
                 return resp
 

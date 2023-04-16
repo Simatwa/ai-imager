@@ -3,10 +3,11 @@ from . import app_data_dir, logging, getExc, __version__, openai
 from . import error_handler as exception_handler
 from .imager import openai_handler
 from os import path
+from .common import generator, history
 
-app_data_dir = path.join(
-    app_data_dir, "contents"
-)  #'/home/smartwa/git/ai-imager/contents'
+app_data_dir = path.join(app_data_dir, "contents")
+
+generate = generator()
 
 
 class local_config:
@@ -14,28 +15,17 @@ class local_config:
         self.auth_cookie_key = "openai_api_key"
         self.upload_path = self.get_path("uploads")
         self.incomplete_form_msg = "Kindly fill all the fields"
+        self.history = history(app_data_dir)
+        self.get_identity = lambda: request.cookies.get("id")
 
     def get_path(self, *args):
         return path.join(app_data_dir, "/".join(args))
 
-    @classmethod
-    def get_cookie(self, key):
-        """Gets cookie from user
-        Args:
-            key (_type_): Cookie name
-
-        Returns:
-            str|None: Value | None
-        """
-        return request.cookies.get(key)
-
-    @classmethod
     def get_from_form(self, *keys, resp: dict = {}):
         for key in keys:
             resp[key] = request.form.get(key)
         return resp
 
-    # @classmethod
     def get_from_file(self, *keys, resp: dict = {}):
         """Retrieve files from form
 
@@ -57,8 +47,14 @@ class local_config:
                 resp[key] = None
         return resp
 
-    @classmethod
-    def format_response(self, resp: list, http_code: int = 200, error: bool = None):
+    def format_response(
+        self,
+        resp: list,
+        http_code: int = 200,
+        error: bool = None,
+        prompt: str = "Image Variant",
+        category="Variation",
+    ):
         """Format response to be handled by API
 
         Args:
@@ -75,8 +71,11 @@ class local_config:
             "url": resp if not error else None,
             "error": None if not error else resp,
         }
-
-        if not any(list(api_data.values())) or "an unexpected keyword" in str(api_data["error"]):
+        if api_data["url"]:
+            self.history.add_new(prompt, category, api_data["url"], self.get_identity())
+        if not any(list(api_data.values())) or "an unexpected keyword" in str(
+            api_data["error"]
+        ):
             api_data[
                 "error"
             ] = """
@@ -86,7 +85,6 @@ class local_config:
             are set properly.</div>"""
         return jsonify(api_data), http_code
 
-    @classmethod
     def imager_error_handler(self):
         """Exception handler at API level"""
 
@@ -129,13 +127,21 @@ def API(
         template_folder=api_config.get_path("templates"),
     )
 
-    @local_config.imager_error_handler()
+    @api_config.imager_error_handler()
     @app.route("/")
     def index():
         """Landing page"""
-        return render_template("index.html")
+        resp = make_response(render_template("index.html"))
+        if not api_config.get_identity():
+            resp.set_cookie("id", generate.new_cookie(), 259200)
+        return resp
 
-    @local_config.imager_error_handler()
+    @api_config.imager_error_handler()
+    @app.route("/v1/history", methods=["GET"])
+    def image_history():
+        return api_config.history.get_contents(api_config.get_identity())
+
+    @api_config.imager_error_handler()
     @app.route("/v1/image/<action>", methods=["GET"])
     def imager(action):
         """Handle v1 routings"""
@@ -145,33 +151,37 @@ def API(
             "form.html", category=action, action=f"/v1/image/{action}/generate"
         )
 
-    @local_config.imager_error_handler()
+    @api_config.imager_error_handler()
     @app.route("/v1/image/prompt/generate", methods=["POST"])
     def create_from_prompt():
         """Generate image from text"""
         form_data = api_config.get_from_form("prompt", "total_images", "image_size")
         if all(list(form_data.values())):
             resp = openai.create_from_prompt(**form_data)
-            return local_config.format_response(resp)
+            return api_config.format_response(
+                resp, prompt=form_data["prompt"], category="ChatGPT"
+            )
         else:
-            return local_config.format_response(
+            return api_config.format_response(
                 api_config.incomplete_form_msg, http_code=400
             )
 
-    @local_config.imager_error_handler()
+    @api_config.imager_error_handler()
     @app.route("/v1/image/bing/generate", methods=["POST"])
     def create_with_bing():
         """Generate image with bing"""
         form_data = api_config.get_from_form("prompt", "total_images")
         if all(list(form_data.values())):
             resp = openai.create_with_bing(**form_data)
-            return local_config.format_response(resp)
+            return api_config.format_response(
+                resp, prompt=form_data["prompt"], category="Bing"
+            )
         else:
-            return local_config.format_response(
+            return api_config.format_response(
                 api_config.incomplete_form_msg, http_code=400
             )
 
-    @local_config.imager_error_handler()
+    @api_config.imager_error_handler()
     @app.route("/v1/image/mask/generate", methods=["POST"])
     def edit_with_mask():
         """Edit image with mask"""
@@ -180,13 +190,15 @@ def API(
         files.update(texts)
         if all(list(files.values())):
             resp = openai.create_edit(**files)
-            return local_config.format_response(resp)
+            return api_config.format_response(
+                resp, prompt=files["prompt"], category="Masking"
+            )
         else:
             return api_config.format_response(
                 api_config.incomplete_form_msg, http_code=400
             )
 
-    @local_config.imager_error_handler()
+    @api_config.imager_error_handler()
     @app.route("/v1/image/variation/generate", methods=["POST"])
     def get_variation():
         """Get another image like same"""
@@ -195,7 +207,7 @@ def API(
         files.update(texts)
         if all(list(files.values())):
             resp = openai.create_variation(**files)
-            return local_config.format_response(resp)
+            return api_config.format_response(resp)
         else:
             return api_config.format_response(
                 api_config.incomplete_form_msg, http_code=400
