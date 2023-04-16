@@ -47,7 +47,7 @@
 
 {% elif category=="mask" %} 
 <div class="create-with-mask">
-    <h2>Modify image with reference to another</h2>
+    <h2>Edit image with mask</h2>
     {% include 'edit_with_mask.html' %}
     <!--"prompt","total_images","image_size"
     original_image_path","masked_image_path")-->
@@ -55,7 +55,7 @@
         <!--image from api is written here-->
     </div><br>
     <input type="number" value = "2" max="10" min="1" id="total-images" name="total_images"/>
-    <label for="total-images">Number of images to generate</label><br>
+    <label for="total-images">No. of images</label><br>
     <!--256x256`, `512x512`, `1024x1024-->
     <select id="image-size" name="image_size">
         <option value="256x256">256x256</option>
