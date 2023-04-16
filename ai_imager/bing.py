@@ -1,5 +1,4 @@
 import argparse
-import asyncio
 from functools import partial
 import contextlib
 import json

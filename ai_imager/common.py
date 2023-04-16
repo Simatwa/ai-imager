@@ -16,7 +16,7 @@ class history:
         if not path.isdir(self.dir):
             makedirs(self.dir)
 
-    @exception_handler(default={"data": []})
+    @exception_handler(False,{"data": []})
     def get_contents(self, cookie: str):
         fnm = self.get_file_path(cookie)
         if path.isfile(fnm):
@@ -45,7 +45,7 @@ class history:
 
 class generator:
     def __init__(self):
-        self.abc = []
+        self.abc = [0,1,2,3,4,5,6,7,8,9]
         for x in range(65, 91):
             self.abc.append(chr(x))
         for x in range(97, 123):

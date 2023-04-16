@@ -108,8 +108,8 @@ Run `$ ai-imager help` for more info.
 
 ```
 
-usage: ai-imager [-h] [-v] [-k KEY] [-kp KEY_PATH] [-l 10-50] [-o OUTPUT]
-                 [--host] [--debug]
+usage: ai-imager [-h] [-v] [-k KEY] [-kp PATH] [-l 10-50] [-o PATH]
+                 [-cf COOKIE_FILE] [--host] [--thread] [--debug]
                  [port ...]
 
 Manipulate images with OpenAI's model
@@ -121,14 +121,19 @@ options:
   -h, --help            show this help message and exit
   -v, --version         show program's version number and exit
   -k KEY, --key KEY     OpenAI's API key
-  -kp KEY_PATH, --key-path KEY_PATH
+  -kp PATH, --key-path PATH
                         Path to OpenAI-API-KEY path
   -l 10-50, --logging-level 10-50
                         Log level of the app
-  -o OUTPUT, --output OUTPUT
+  -o PATH, --output PATH
                         Filepath to log to
+  -cf COOKIE_FILE, --cookie-file COOKIE_FILE
+                        Path to Bing's cookie file
   --host                Host the site on LAN
+  --thread              Run server in multiple threads
   --debug               Start as debugging server
+
+This script has no official relation with OpenAI.
 
 ```
 

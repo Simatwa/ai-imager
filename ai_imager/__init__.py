@@ -52,11 +52,13 @@ def error_handler(log: bool = True, default=None):
                     resp = "Server is missing OPENAI-API-KEY"
                 else:
                     resp = e.error["message"]
-                    logging.error(resp)
+                    if log:
+                        logging.error(resp)
                 return resp
             except Exception as e:
                 resp = getExc(e)
-                logging.error(f"Function : {func.__name__} - {resp}")
+                if log:
+                    logging.error(f"Function : {func.__name__} - {resp}")
                 return default if default else resp
             else:
                 return resp
