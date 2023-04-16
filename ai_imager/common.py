@@ -45,11 +45,13 @@ class history:
 
 class generator:
     def __init__(self):
-        self.abc = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        self.abc = []
         for x in range(65, 91):
             self.abc.append(chr(x))
         for x in range(97, 123):
             self.abc.append(chr(x))
+        for x in range(0,10):
+            self.abc.append(str(x))
 
-    def new_cookie(self, lenght: int = 14):
-        return "".join(random.sample(self.abc, lenght))
+    def new_cookie(self, length: int = 14):
+        return "".join(random.sample(self.abc, length))
