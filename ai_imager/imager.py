@@ -110,8 +110,8 @@ class openai_handler:
             image_resolution (int, optional): Resolution of the image to be squared. Defaults to 512.
         """
         # Read the image file from disk and resize it
-        if no_mods:
-            return open(path_to_image, "r+b")
+        #if no_mods:
+        #    return open(path_to_image, "r+b")
         image = Image.open(path_to_image)
         image = image.resize((image_resolution, image_resolution))
         # Convert the image to a BytesIO object
