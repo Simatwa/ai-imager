@@ -17,6 +17,7 @@
   - ChatGPT
 - Edit image with a mask
 - Generate variant of an image
+- User-friendly web interface
 
 ## Prerequisites
 
