@@ -90,7 +90,7 @@ class openai_handler:
         return self.format_response(response, "VARIATION")
 
     @error_handler()
-    def create_with_bing(self, prompt: str, total_images: int = 2) -> list:
+    def create_with_bing(self, prompt: str, total_images: int = 2,image_size:str=None) -> list:
         resp = []
         total_images = int(total_images)
         for x in range(ceil(total_images / 4)):
