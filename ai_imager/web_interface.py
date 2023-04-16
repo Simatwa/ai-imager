@@ -4,6 +4,7 @@ from . import error_handler as exception_handler
 from .imager import openai_handler
 from os import path
 from .common import generator, history
+from typing import Any
 
 app_data_dir = path.join(app_data_dir, "contents")
 
@@ -16,15 +17,70 @@ class local_config:
         self.upload_path = self.get_path("uploads")
         self.incomplete_form_msg = "Kindly fill all the fields"
         self.history = history(app_data_dir)
+        self.history_args = ['category','prompt','time','urls']
         self.get_identity = lambda: request.cookies.get("id")
 
     def get_path(self, *args):
         return path.join(app_data_dir, "/".join(args))
+    
+    def get_arg(self,*keys,default:Any=None,resp:dict={}) -> dict:
+        """Extracts parameter's value from GET request
 
-    def get_from_form(self, *keys, resp: dict = {}):
+        Args:
+            default (Any, optional): Value to be return incase of None. Defaults to None.
+            resp (dict, optional): Keys,values to be added in response. Defaults to {}.
+
+        Returns:
+            dict: Parameter:Value 
+        """
+        for arg in keys:
+            resp[arg] = request.args.get(arg,default)
+        return resp
+
+    def get_from_form(self, *keys, resp: dict = {}) -> dict:
+        """Exracts data from POST requests
+
+        Args:
+            resp (dict, optional): _description_. Defaults to {}.
+
+        Returns:
+            dict: Form data - key,value 
+        """
         for key in keys:
             resp[key] = request.form.get(key)
         return resp
+
+    def history_handler(self,target:str=None,limit:int=1000) -> dict:
+        """Extracts requested history data
+
+        Args:
+            target (str, optional): Data in need. Defaults to None.
+            limit (int,optional) : Limit response[data]
+
+        Returns:
+            dict : Requested data 
+        """
+        target = str(target).lower()
+        if limit and str(limit).isdigit():
+            limit = int(limit)
+        else:
+            limit = 0
+        resp = {'data':[]}
+        data = self.history.get_contents(self.get_identity())
+        if target and target in self.history_args:
+            for entry in data['data']:
+                current_resp = resp['data']
+                if target=='urls':
+                    resp['data']=current_resp+entry[target]
+                else:
+                    current_resp.append(entry[target])
+                    resp['data']=current_resp
+    
+        else:
+            resp = data
+        if limit and len(resp['data'])>limit:
+            resp['data']=resp['data'][:limit]
+        return resp 
 
     def get_from_file(self, *keys, resp: dict = {}):
         """Retrieve files from form
@@ -59,10 +115,13 @@ class local_config:
 
         Args:
             resp (str | list): Response
+            hhtp_code (int): Response http code
             error (bool, optional): Specifies to handle resp as error . Defaults to False.
+            prompt (str, optional): Prompt parsed . Defaults to Image Variant
+            category (str, optional): Image manipulator category
 
         Returns:
-            json: Respnse formatted for API
+            json: Response formatted for API
         """
         if not isinstance(resp, list):
             error = True
@@ -139,7 +198,10 @@ def API(
     @api_config.imager_error_handler()
     @app.route("/v1/history", methods=["GET"])
     def image_history():
-        return api_config.history.get_contents(api_config.get_identity())
+        #args : amount  category
+        data = api_config.history.get_contents(api_config.get_identity())
+        reqs=api_config.get_arg('limit','target')
+        return api_config.history_handler(**reqs)
 
     @api_config.imager_error_handler()
     @app.route("/v1/image/<action>", methods=["GET"])
