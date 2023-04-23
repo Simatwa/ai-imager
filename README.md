@@ -1,6 +1,6 @@
 <h1 align="center">AI-Imager</h1>
 <p align="center">
-<img align="center" width='80px' height='auto' src="https://github.com/Simatwa/ai-imager/raw/main/contents/static/image/favicon.svg" alt="Logo"/><br>
+<img align="center" width='80px' height='auto' src="https://github.com/Simatwa/ai-imager/raw/main/contents/static/image/favicon.svg" alt="Logo"/><br><br>
 <a href="https://github.com/Simatwa/ai-imager"><img src="https://img.shields.io/static/v1?label=Github&message=passing&logo=github&color=green" alt="Github"/></a>
 <a href="https://github.com/Simatwa/ai-imager/raw/main/LICENSE"><img src="https://img.shields.io/static/v1?label=License&message=GNU v3.0&logo=license&color=yellow" alt="License"/></a>
 <a href="#"><img src="https://visitor-badge.glitch.me/badge?page_id=Simatwa.ai_imager&left_color=lime&right_color=red&left_text=Visitors" alt="visitors"></a>
