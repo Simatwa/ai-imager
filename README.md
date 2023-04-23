@@ -164,13 +164,3 @@ This project exists thanks to all the people who contribute.
 ## Disclaimer
 
 This is not an official OpenAI product. This is a personal project and is not affiliated with OpenAI in any way. Don't sue me.
-
-> **Tips** - Incase you're stack while using the script, don't hesitate to hit the developer's inbox 📥.
-
-## Developer Contacts
-
-<p align='center'>
-<a href="https://facebook.com/beny.carl.3"><img alt="Facebook" src="https://img.shields.io/static/v1?logo=facebook&message=Inbox&color=blue&label=Facebook"/></a>
-<a href="https://twitter.com/Smartwa_Caleb"><img alt="Twitter" src="https://img.shields.io/static/v1?logo=twitter&message=DM&color=cyan&label=Twitter"/></a>
-<a href="http://instagram.com/smartwa_caleb"><img alt="instagram" src="https://img.shields.io/static/v1?logo=instagram&message=DM&color=pink&label=Instagram"/>
-<a href="https://wa.me/254774304553?text=Hi *Smartwa*, I need help with *ai-imager* script ..."><img alt='Whatsapp' src="https://img.shields.io/static/v1?logo=whatsapp&message=Inbox&color=green&label=WhatsApp"/></a>
