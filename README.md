@@ -1,20 +1,20 @@
 <h1 align="center">AI-Imager</h1>
 <p align="center">
+<img align="center" width='80px' height='auto' src="https://github.com/Simatwa/ai-imager/raw/main/contents/static/image/favicon.svg" alt="Logo"/><br>
 <a href="https://github.com/Simatwa/ai-imager"><img src="https://img.shields.io/static/v1?label=Github&message=passing&logo=github&color=green" alt="Github"/></a>
 <a href="https://github.com/Simatwa/ai-imager/raw/main/LICENSE"><img src="https://img.shields.io/static/v1?label=License&message=GNU v3.0&logo=license&color=yellow" alt="License"/></a>
 <a href="#"><img src="https://visitor-badge.glitch.me/badge?page_id=Simatwa.ai_imager&left_color=lime&right_color=red&left_text=Visitors" alt="visitors"></a>
 <a href="#"><img src="https://img.shields.io/static/v1?label=Development&message=Beta&color=Orange&logo=progress" alt="Progress"/></a>
 <a href="#"><img src="https://img.shields.io/static/v1?label=Code Style&message=Black&color=black&logo=Black" alt="Code-style"/></a>
 <a href="#"><img src="https://img.shields.io/static/v1?label=Coverage&message=80%&color=green" alt="Coverage"/></a>
-<a href="https://wakatime.com/badge/github/Simatwa/ai-imager"><img src="https://wakatime.com/badge/github/Simatwa/ai-imager.svg" alt="wakatime"></a><br>
-<img align="center" width='80px' height='auto' src="https://github.com/Simatwa/ai-imager/raw/main/contents/static/image/favicon.svg" alt="Logo"/>
+<a href="https://wakatime.com/badge/github/Simatwa/ai-imager"><img src="https://wakatime.com/badge/github/Simatwa/ai-imager.svg" alt="wakatime"></a>
 </p>
 
 ## Features 
 
 - Generate image from prompt
-  - EdgeGPT
-  - ChatGPT
+  - BingImageCreator
+  - DALL-E (2)
 - Edit image with a mask
 - Generate variant of an image
 - User-friendly web interface
@@ -143,11 +143,10 @@ This script has no official relation with OpenAI.
 
 ## ToDo
 
-- [x] Render urls in JS
-- [x] Prettify display
-- [ ] Aunthenticate users
-- [x] Generate with EdgeGPT
+- [x] Generate with BingImageCreator
+- [ ] Download button 
 - [ ] Chat feature
+- [ ] Aunthenticate users
 
 ## Acknowledgements
 

@@ -20,7 +20,7 @@ setup(
     install_requires=open("requirements.txt", encoding="utf-8").readlines(),
     license="GNU v3",
     python_requires=">=3.7",
-    description="OpenAI based image generator and manipulator API",
+    description="DALL-E based image generator and manipulator",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     classifiers=[
@@ -34,6 +34,7 @@ setup(
         "Intended Audience :: End Users/Desktop",
         "Natural Language :: English",
         "Topic :: Software Development :: Libraries :: Python Modules",
+        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
