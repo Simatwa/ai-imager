@@ -1,21 +1,19 @@
 {% extends 'base.html' %}
 {% block title %} {{category.capitalize()}} - AI Imager {% endblock %}
 {% block body %}
- <form id='my-form' method="POST" encoding="multipart/form-data" action="{{ action }}">
+ <form id='my-form' method="POST" encoding="multipart/form-data">
 {% if category=="prompt" %}
 <div class="create-from-prompt">
     <h2>Text-to-Image</h2>
     {% include 'create_from_prompt.html' %}
-    <!-- prompt',"total_images","image_size-->
     <div id="image-container">
-        <!--image from api is written here-->
+        <!--image from api is rendered here-->
     </div><br>
     <label for="image-description">Describe the image to be generated</label> <br>
     <textarea id="image-description" name="prompt" cols="100%" rows="20" placeholder="Developed new york city in 2030"></textarea><br>
 
     <input type="number" value = "2" max="10" min="1" id="total-images" name="total_images"/> 
     <label for="total-images">Total Images</label><br>
-    <!--256x256`, `512x512`, `1024x1024-->
     <div class='to-be-hidden'>
         <select id="image-size" name="image_size">
             <option value="256x256">256x256</option>
@@ -31,9 +29,8 @@
 <div class="create-from-prompt">
     <h2>Bing Text-to-Image</h2>
     {% include 'create_with_bing.html' %}
-    <!-- prompt',"total_images","image_size-->
     <div id="image-container">
-        <!--image from api is written here-->
+        <!--image from api is rendered here-->
     </div><br>
     <label for="image-description">Describe the image to be generated</label> <br>
     <textarea id="image-description" name="prompt" cols="100%" rows="20" placeholder="Developed new york city in 2030">
@@ -49,14 +46,11 @@
 <div class="create-with-mask">
     <h2>Edit image with mask</h2>
     {% include 'edit_with_mask.html' %}
-    <!--"prompt","total_images","image_size"
-    original_image_path","masked_image_path")-->
     <div id="image-container">
-        <!--image from api is written here-->
+        <!--image from api is rendered here-->
     </div><br>
     <input type="number" value = "2" max="10" min="1" id="total-images" name="total_images"/>
     <label for="total-images">No. of images</label><br>
-    <!--256x256`, `512x512`, `1024x1024-->
     <select id="image-size" name="image_size">
         <option value="256x256">256x256</option>
         <option value="512x512">512x512</option>
@@ -82,14 +76,11 @@
     <p class="further-info">
             
     </p>
-    <!--total_images","image_size" "path_to_image"-->
     <div id="image-container">
-        <!--image from api is written here-->
+        <!--image from api is rendered here-->
     </div><br>
     <input type="number" value = "2" max="10" min="1" id="total-images" name="total_images"/>
     <label for="total-images">Total Images</label><br>
-
-    <!--256x256`, `512x512`, `1024x1024-->
     <select id="image-size" name="image_size">
         <option value="256x256">256x256</option>
         <option value="512x512">512x512</option>
@@ -102,9 +93,6 @@
 </div>
 
 {% endif %}
-<!--
-<input type="submit" onclick='return postFormData("{{action}}")' value="Send">
--->
 <button class="send" onclick='return postFormData("{{action}}")'>Send</button>
 
 </form>

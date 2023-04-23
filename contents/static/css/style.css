@@ -36,7 +36,7 @@ body {
   }
 
   span.title{
-    color:gainsboro;
+    color:rgb(220, 220, 220);
     margin-left:5%;
     font-size:20px;
     font-family:belgrano;
@@ -114,8 +114,8 @@ body {
   }
   
   footer {
-    background-color: #333;
-    color: #fff;
+    background-color: hwb(0 20% 80%);
+    color: rgb(255, 255, 255);
     padding: 20px;
     text-align: center;
     bottom:0;
@@ -127,10 +127,10 @@ body {
   }
 
   .error{
-    color:red;
+    color:rgb(255, 0, 0);
     text-align:center;
-    border-color:green;
-    border-radius:30px solid yellow;
+    border-color:rgb(0, 128, 0);
+    border-radius:30px solid rgb(255, 255, 0);
     padding:10px;
   }
 
@@ -173,8 +173,6 @@ form{
     text-indent:1em;
     padding:10px;
     border-radius:20px;
-    cols: 50;
-    rows: 10;
   }
 
   input{
@@ -216,7 +214,7 @@ form{
 
   button.send:hover{
     background-color:rgb(13, 243, 232);
-    color:brown;
+    color:rgb(165, 42, 42);
     margin:10px;
     width:80px;
     font-size:17px;
@@ -225,7 +223,7 @@ form{
   
   @media screen and (min-width: 768px) {
     span.title{
-      color:gainsboro;
+      color:rgb(220, 220, 220);
       margin-left:35%;
       font-size:20px;
       font-family:belgrano;
@@ -364,12 +362,12 @@ form{
  }
 
  .loader-multicolor {
-  border: 16px solid #f3f3f3;
+  border: 16px solid rgb(243, 243, 243);
   border-radius: 50%;
-  border-top: 16px solid teal;
-  border-right: 16px solid yellow;
-  border-bottom: 16px solid turquoise;
-  border-left: 16px solid cyan;
+  border-top: 16px solid rgb(0, 128, 128);
+  border-right: 16px solid rgb(255, 255, 0);
+  border-bottom: 16px solid rgb(64, 224, 208);
+  border-left: 16px solid hsl(180, 100%, 50%);
   width: 60px;
   height: 60px;
   -webkit-animation: spin 2s linear
