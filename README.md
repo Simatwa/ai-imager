@@ -10,6 +10,8 @@
 <a href="https://wakatime.com/badge/github/Simatwa/ai-imager"><img src="https://wakatime.com/badge/github/Simatwa/ai-imager.svg" alt="wakatime"></a>
 </p>
 
+![Demo](assets/demo.png)
+
 ## Features 
 
 - Generate image from prompt
