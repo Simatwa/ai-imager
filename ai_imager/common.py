@@ -50,7 +50,7 @@ class generator:
             self.abc.append(chr(x))
         for x in range(97, 123):
             self.abc.append(chr(x))
-        for x in range(0,10):
+        for x in range(0, 10):
             self.abc.append(str(x))
 
     def new_cookie(self, length: int = 14):

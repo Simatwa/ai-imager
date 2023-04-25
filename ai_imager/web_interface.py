@@ -311,10 +311,10 @@ def start_server():
         epilog="This script has no official relation with OpenAI.",
     )
     parser.add_argument(
-        "-v", "--version", action="version", version=f"%(prog)s v{__version__}"
+        "port", nargs="?", type=int, help="Port to start the server at", default=8000
     )
     parser.add_argument(
-        "port", nargs="*", type=int, help="Port to start the server", default=8000
+        "-v", "--version", action="version", version=f"%(prog)s v{__version__}"
     )
     parser.add_argument("-k", "--key", help="OpenAI's API key")
     parser.add_argument(
