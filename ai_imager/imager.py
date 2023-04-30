@@ -70,8 +70,12 @@ class openai_handler:
             size (str, optional): Image resolution from [`256x256`, `512x512`, `1024x1024`]. Defaults to "512x512".
         """
         response = openai.Image.create_edit(
-            image=self._get_image_bytes(original_image_path, no_mods=True),
-            mask=self._get_image_bytes(masked_image_path, no_mods=True),
+            image=self._get_image_bytes(
+                original_image_path,
+            ),
+            mask=self._get_image_bytes(
+                masked_image_path,
+            ),
             prompt=prompt,
             n=int(total_images),
             size=image_size,
@@ -112,10 +116,11 @@ class openai_handler:
             image_resolution (int, optional): Resolution of the image to be squared. Defaults to 512.
         """
         # Read the image file from disk and resize it
-        # if no_mods:
-        #    return open(path_to_image, "r+b")
+        if no_mods:
+            return open(path_to_image, "r+b")
         image = Image.open(path_to_image)
         image = image.resize((image_resolution, image_resolution))
+        image = image.convert("RGBA")
         # Convert the image to a BytesIO object
         byte_stream = BytesIO()
         image.save(byte_stream, format="PNG")

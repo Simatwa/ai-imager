@@ -55,6 +55,7 @@ body {
   figure > img {
     height: auto;
     width: 100%;
+    text-align:center;
   }
 
   p:not(.footer-container > p){
@@ -161,7 +162,7 @@ form{
 }
 
   textarea {
-    width: 100%;
+    width: 30px;
     max-width: 600px;
     min-width: 200px;
     height: 200px;
@@ -199,7 +200,6 @@ form{
   select{
     width:90px;
     height:25px;
-
   }
 
 
